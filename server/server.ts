@@ -9,8 +9,8 @@ dotenv.config();
 
 const server = createServer(
   {
-    key: readFileSync("certs/private.key"),
-    cert: readFileSync("certs/certificate.crt"),
+    key: readFileSync("../../recipefy-certs/private.key"),
+    cert: readFileSync("../../recipefy-certs/certificate.crt"),
   },
   app
 );
