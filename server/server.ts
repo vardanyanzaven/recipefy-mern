@@ -1,4 +1,5 @@
 import { createServer } from "https";
+import { resolve } from "path";
 import { readFileSync } from "fs";
 import dotenv from "dotenv";
 
@@ -9,8 +10,8 @@ dotenv.config();
 
 const server = createServer(
   {
-    key: readFileSync("../../recipefy-certs/private.key"),
-    cert: readFileSync("../../recipefy-certs/certificate.crt"),
+    key: readFileSync("../../recipefy-certs/key.pem"),
+    cert: readFileSync("../../recipefy-certs/cert.pem"),
   },
   app
 );

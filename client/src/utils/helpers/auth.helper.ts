@@ -3,11 +3,12 @@ import {
   SignInData,
   SignUpData,
   ValidationFn,
+  validateSignIn,
+  validateSignUp,
 } from "../validation/auth.schema";
 
 export type SubmitArgs = {
   formFields: SignInData & SignUpData;
-  validateFn: ValidationFn;
   url: string;
 };
 
@@ -15,10 +16,11 @@ const handleAuthSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
   submitArgs: SubmitArgs
 ) => {
-  const { formFields, validateFn, url } = submitArgs;
+  const { formFields, url } = submitArgs;
   // Prevents the form from clearing all the fields
   e.preventDefault();
-  const { isValid, error } = await validateFn(formFields);
+
+  const { isValid, error } = formFields.hasOwnProperty("username") ? await validateSignUp(formFields) : await validateSignIn(formFields);
 
   // Checks if the Yup validation is successful
   if (!isValid) {

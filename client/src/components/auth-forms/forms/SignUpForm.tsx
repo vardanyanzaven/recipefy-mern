@@ -9,12 +9,9 @@ import {
 } from "../auth.styles";
 import Logo from "../../logo/Logo";
 import Button, { BUTTON_TYPES } from "../../button/Button";
-import {
-  SignUpData,
-  validateSignUp,
-} from "../../../utils/validation/auth.schema";
+import { SignUpData } from "../../../utils/validation/auth.schema";
 import { useAppDispatch } from "../../../redux/hooks.redux";
-import { setUserState } from "../../../redux/redux-slices/user.slice";
+import { setUser } from "../../../redux/redux-slices/user.slice";
 import { UserData } from "../../header-user/HeaderUser";
 import { handleAuthSubmit } from "../../../utils/helpers/auth.helper";
 
@@ -37,7 +34,6 @@ const SignUp = () => {
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     const result = await handleAuthSubmit(e, {
       formFields,
-      validateFn: validateSignUp,
       url: "sign-up",
     });
 
@@ -47,7 +43,7 @@ const SignUp = () => {
     }
 
     // Sets user's state to the user data
-    dispatch(setUserState(result as UserData));
+    dispatch(setUser(result as UserData));
 
     // Resets the form fields
     setFormFields(defaultFormFields);
