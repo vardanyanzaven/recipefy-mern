@@ -42,7 +42,7 @@ const httpSignInUser = async (req: Request, res: Response) => {
     // Creates a JWT token
     const token = createToken(user._id);
 
-    return res.status(200).json({ username: user.username, email: user.email });
+    return res.status(200).json({ username: user.username, email: user.email, token });
   } catch (err) {
     console.log((err as Error).message);
     return res.status(400).json({ error: (err as Error).message });

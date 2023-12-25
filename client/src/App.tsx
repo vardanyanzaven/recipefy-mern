@@ -13,8 +13,7 @@ function App() {
             path="recipes"
             element={
               <>
-                <div>Recipes page here</div>
-                <Outlet />
+                <p>Recipes page here</p>
               </>
             }
           />

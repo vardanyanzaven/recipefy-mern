@@ -1,5 +1,6 @@
 import React, { ButtonHTMLAttributes, ReactNode } from "react";
 import { BaseButton, SecondaryButton } from "./Button.styles";
+import { ButtonOwnProps } from "@mui/material";
 
 enum BUTTON_TYPES {
   base = "base",
@@ -9,7 +10,7 @@ enum BUTTON_TYPES {
 type ButtonProps = {
   children?: ReactNode;
   buttonType?: BUTTON_TYPES;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+} & ButtonHTMLAttributes<HTMLButtonElement> & ButtonOwnProps;
 
 const Button = ({
   buttonType,

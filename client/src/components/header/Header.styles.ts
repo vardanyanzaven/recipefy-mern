@@ -1,30 +1,43 @@
-import { Link } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
 
-const HeaderContainer = styled.div`
+const HeaderCont = styled(Box)`
+  flex-grow: 1;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 0 40px;
-  height: 75px;
-  margin-bottom: 20px;
-  border-bottom: 2px solid black;
+  max-width: 33%;
 `;
 
-const HeaderSection = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 33%;
-  justify-content: center;
-  column-gap: 15%;
-`;
-
-const HeaderLink = styled(Link)`
-  color: #3bd6c6;
-  text-decoration: none;
-  text-align: center;
+const HeaderLink = styled(Typography)`
   text-transform: capitalize;
+  text-decoration: none;
+  color: black;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1em;
+    background-color: #3bd6c6;
+    transition: opacity 300ms, transform 300ms;
+    opacity: 1;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  &:hover::after,
+  &:focus::after {
+    transform: translate3d(0, 0, 0);
+  }
 `;
 
-export { HeaderContainer, HeaderSection, HeaderLink };
+const Logo = styled(Typography)`
+  color: black;
+  text-decoration: none;
+  transition: all 0.1s;
+`;
+
+export { HeaderLink, Logo, HeaderCont };

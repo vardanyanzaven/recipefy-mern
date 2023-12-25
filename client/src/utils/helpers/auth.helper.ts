@@ -8,7 +8,7 @@ import {
 } from "../validation/auth.schema";
 
 export type SubmitArgs = {
-  formFields: SignInData & SignUpData;
+  formFields: SignInData | SignUpData;
   url: string;
 };
 
@@ -20,7 +20,7 @@ const handleAuthSubmit = async (
   // Prevents the form from clearing all the fields
   e.preventDefault();
 
-  const { isValid, error } = formFields.hasOwnProperty("username") ? await validateSignUp(formFields) : await validateSignIn(formFields);
+  const { isValid, error } = formFields.hasOwnProperty("username") ? await validateSignUp(formFields as SignUpData) : await validateSignIn(formFields as SignInData);
 
   // Checks if the Yup validation is successful
   if (!isValid) {

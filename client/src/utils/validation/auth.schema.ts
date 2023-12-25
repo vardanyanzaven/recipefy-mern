@@ -10,12 +10,14 @@ export type ValidationData = {
   error?: string;
 };
 
-export type SignUpData = SignInData & {
+export type SignUpData = {
   username: string;
+  email: string;
+  password: string;
 };
 
 export type ValidationFn = (
-  formData: SignInData & SignUpData
+  formData: SignInData | SignUpData
 ) => Promise<ValidationData>;
 
 const signInSchema: Yup.ObjectSchema<SignInData> = Yup.object().shape({
@@ -54,10 +56,14 @@ const validateFormData = async (
   }
 };
 
-const validateSignUp: ValidationFn = (formData: SignUpData) =>
-  validateFormData(signUpSchema, formData);
+const validateSignUp: ValidationFn = (formData: SignInData | SignUpData) => {
+  const signUpData = formData as SignUpData;
+  return validateFormData(signUpSchema, signUpData);
+};
 
-const validateSignIn: ValidationFn = (formData: SignInData) =>
-  validateFormData(signInSchema, formData);
+const validateSignIn: ValidationFn = (formData: SignInData | SignUpData) => {
+  const signInData = formData as SignInData;
+  return validateFormData(signInSchema, signInData);
+};
 
 export { validateSignUp, validateSignIn };
