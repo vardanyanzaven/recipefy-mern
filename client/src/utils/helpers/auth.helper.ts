@@ -2,32 +2,23 @@ import { UserData } from "../../components/header-user/HeaderUser";
 import {
   SignInData,
   SignUpData,
-  ValidationFn,
   validateSignIn,
   validateSignUp,
 } from "../validation/auth.schema";
 
-export type SubmitArgs = {
-  formFields: SignInData | SignUpData;
-  url: string;
-};
-
 const handleAuthSubmit = async (
-  e: React.FormEvent<HTMLFormElement>,
-  submitArgs: SubmitArgs
+  formFields: SignInData | SignUpData,
+  url: string
 ) => {
-  const { formFields, url } = submitArgs;
-  // Prevents the form from clearing all the fields
-  e.preventDefault();
-
-  const { isValid, error } = formFields.hasOwnProperty("username") ? await validateSignUp(formFields as SignUpData) : await validateSignIn(formFields as SignInData);
+  const { isValid, error } = formFields.hasOwnProperty("username")
+    ? await validateSignUp(formFields as SignUpData)
+    : await validateSignIn(formFields as SignInData);
 
   // Checks if the Yup validation is successful
   if (!isValid) {
-    console.error(error);
     return {
-        error: (error as string)
-    }
+      error,
+    };
   }
 
   // POST-s sign up data to the backend
@@ -40,7 +31,7 @@ const handleAuthSubmit = async (
   });
 
   // Retrieves the user data if successful, otherwise fetches the error message
-  const result: UserData & { error: Error } = await res.json();
+  const result: UserData & { credentialErr: string } = await res.json();
 
   return result;
 };

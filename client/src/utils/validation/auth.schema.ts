@@ -66,4 +66,4 @@ const validateSignIn: ValidationFn = (formData: SignInData | SignUpData) => {
   return validateFormData(signInSchema, signInData);
 };
 
-export { validateSignUp, validateSignIn };
+export { signUpSchema, signInSchema, validateSignUp, validateSignIn };

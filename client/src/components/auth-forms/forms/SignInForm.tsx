@@ -1,38 +1,53 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Box, Paper, Typography } from "@mui/material";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
 import Logo from "../../logo/Logo";
 import Button, { BUTTON_TYPES } from "../../button/Button";
 import { handleAuthSubmit } from "../../../utils/helpers/auth.helper";
-import { SignInData } from "../../../utils/validation/auth.schema";
+import { SignInData, signInSchema } from "../../../utils/validation/auth.schema";
 import { useAppDispatch } from "../../../redux/hooks.redux";
 import { setUser } from "../../../redux/redux-slices/user.slice";
 import { UserData } from "../../header-user/HeaderUser";
 import { StyledTextField } from "../auth.styles";
-import { Box, Paper, Typography } from "@mui/material";
-
-const defaultFormFields: SignInData = {
-  email: "",
-  password: "",
-};
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const SignIn = () => {
-  const [formFields, setFormFields] = useState(defaultFormFields);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({resolver: yupResolver(signInSchema)});
+  const [credErrorMssg, setCredErrorMssg] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    setFormFields({ ...formFields, [name]: value });
+  const getCredError = (inputName: string) => {
+    if (
+      (inputName === "email" ||
+        inputName === "password") &&
+      credErrorMssg.toLowerCase().includes(inputName)
+    ) {
+      return credErrorMssg;
+    }
   };
 
-  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
-    const result = await handleAuthSubmit(e, {
-      formFields,
-      url: "sign-in",
-    });
+  const handleSignIn: SubmitHandler<FieldValues> = async (data) => {
+    const signInData = data as SignInData;
+    const result = await handleAuthSubmit(signInData, "sign-in");
 
-    if (result.error) {
-      console.error(result.error);
+    // Checks if there were any errors during validation
+    if (result.hasOwnProperty("validationErr")) {
+      return;
+    }
+
+    // Checks if there were any errors during authentication
+    if (result.hasOwnProperty("credentialErr")) {
+      console.log("Asd")
+      const credErrResult = result as UserData & { credentialErr: string };
+      setCredErrorMssg(credErrResult.credentialErr);
       return;
     }
 
@@ -40,7 +55,7 @@ const SignIn = () => {
     dispatch(setUser(result as UserData));
 
     // Resets the form fields
-    setFormFields(defaultFormFields);
+    reset();
 
     // Redirects to home page
     navigate("/");
@@ -73,15 +88,17 @@ const SignIn = () => {
             alignItems: "center",
             rowGap: 25,
           }}
-          onSubmit={handleSignIn}
+          onSubmit={handleSubmit(handleSignIn)}
         >
           <StyledTextField
+          {...register("email")}
             required
             id="email-input"
             label="Email"
             type="text"
             variant="standard"
-            onChange={handleChange}
+            error={Boolean(errors.email || getCredError("email"))}
+            helperText={(errors.email?.message as string) || getCredError("email")}
           />
           <StyledTextField
             required
@@ -89,7 +106,8 @@ const SignIn = () => {
             label="Password"
             type="password"
             variant="standard"
-            onChange={handleChange}
+            error={Boolean(errors.password || getCredError("password"))}
+            helperText={(errors.password?.message as string) || getCredError("password")}
           />
           <Button
             style={{ margin: "40px 0" }}
