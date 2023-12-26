@@ -6,12 +6,16 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Logo from "../../logo/Logo";
 import Button, { BUTTON_TYPES } from "../../button/Button";
 import { handleAuthSubmit } from "../../../utils/helpers/auth.helper";
-import { SignInData, signInSchema } from "../../../utils/validation/auth.schema";
+import {
+  SignInData,
+  signInSchema,
+} from "../../../utils/validation/auth.schema";
 import { useAppDispatch } from "../../../redux/hooks.redux";
 import { setUser } from "../../../redux/redux-slices/user.slice";
 import { UserData } from "../../header-user/HeaderUser";
 import { StyledTextField } from "../auth.styles";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AUTH_INPUTS } from "../../../constants";
 
 const SignIn = () => {
   const dispatch = useAppDispatch();
@@ -21,13 +25,12 @@ const SignIn = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({resolver: yupResolver(signInSchema)});
+  } = useForm({ resolver: yupResolver(signInSchema) });
   const [credErrorMssg, setCredErrorMssg] = useState("");
 
   const getCredError = (inputName: string) => {
     if (
-      (inputName === "email" ||
-        inputName === "password") &&
+      (inputName === "email" || inputName === "password") &&
       credErrorMssg.toLowerCase().includes(inputName)
     ) {
       return credErrorMssg;
@@ -45,7 +48,7 @@ const SignIn = () => {
 
     // Checks if there were any errors during authentication
     if (result.hasOwnProperty("credentialErr")) {
-      console.log("Asd")
+      console.log("Asd");
       const credErrResult = result as UserData & { credentialErr: string };
       setCredErrorMssg(credErrResult.credentialErr);
       return;
@@ -90,25 +93,23 @@ const SignIn = () => {
           }}
           onSubmit={handleSubmit(handleSignIn)}
         >
-          <StyledTextField
-          {...register("email")}
-            required
-            id="email-input"
-            label="Email"
-            type="text"
-            variant="standard"
-            error={Boolean(errors.email || getCredError("email"))}
-            helperText={(errors.email?.message as string) || getCredError("email")}
-          />
-          <StyledTextField
-            required
-            id="password-input"
-            label="Password"
-            type="password"
-            variant="standard"
-            error={Boolean(errors.password || getCredError("password"))}
-            helperText={(errors.password?.message as string) || getCredError("password")}
-          />
+          {AUTH_INPUTS.map((input) => {
+            if(input.name === "username") return "";
+            return (
+              <StyledTextField
+                {...register(input.name)}
+                key={input.name}
+                id={`${input.name}-input`}
+                label={`${input.label} *`}
+                type={input.name !== "password" ? "text" : "password"}
+                variant="standard"
+                error={Boolean(errors[input.name] || getCredError(input.name))}
+                helperText={
+                  errors[input.name]?.message || getCredError(input.name)
+                }
+              />
+            );
+          })}
           <Button
             style={{ margin: "40px 0" }}
             buttonType={BUTTON_TYPES.secondary}

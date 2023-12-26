@@ -12,3 +12,18 @@ export const headerLinks: { name: string; link: string }[] = [
     link: "library",
   },
 ];
+
+export const AUTH_INPUTS: { name: "username" | "email" | "password"; label: string }[] = [
+  {
+    label: "Username",
+    name: "username",
+  },
+  {
+    label: "Email",
+    name: "email",
+  },
+  {
+    label: "Password",
+    name: "password",
+  },
+];

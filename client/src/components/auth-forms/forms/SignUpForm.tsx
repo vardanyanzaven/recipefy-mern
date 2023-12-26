@@ -2,16 +2,20 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Box, Paper, Typography } from "@mui/material";
-import {yupResolver} from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import Logo from "../../logo/Logo";
 import Button, { BUTTON_TYPES } from "../../button/Button";
-import { SignUpData, signUpSchema } from "../../../utils/validation/auth.schema";
+import {
+  SignUpData,
+  signUpSchema,
+} from "../../../utils/validation/auth.schema";
 import { useAppDispatch } from "../../../redux/hooks.redux";
 import { setUser } from "../../../redux/redux-slices/user.slice";
 import { UserData } from "../../header-user/HeaderUser";
 import { handleAuthSubmit } from "../../../utils/helpers/auth.helper";
 import { StyledTextField } from "../auth.styles";
+import { AUTH_INPUTS } from "../../../constants";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -21,8 +25,9 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<SignUpData>({resolver: yupResolver(signUpSchema)});
+  } = useForm<SignUpData>({ resolver: yupResolver(signUpSchema) });
   const [credErrorMssg, setCredErrorMssg] = useState("");
+  console.log(credErrorMssg)
 
   const getCredError = (inputName: string) => {
     if (
@@ -45,7 +50,6 @@ const SignUp = () => {
 
     // Checks if there were any errors during authentication
     if (result.hasOwnProperty("credentialErr")) {
-      console.log("CredErr in Sign up");
       const credErrResult = result as UserData & { credentialErr: string };
       setCredErrorMssg(credErrResult.credentialErr);
       return;
@@ -90,36 +94,22 @@ const SignUp = () => {
           }}
           onSubmit={handleSubmit(handleSignUp)}
         >
-          <StyledTextField
-            {...register("username")}
-            required
-            id="username-input"
-            label="Username"
-            type="text"
-            variant="standard"
-            error={Boolean(errors.username || getCredError("username"))}
-            helperText={errors.username?.message || getCredError("username")}
-          />
-          <StyledTextField
-            {...register("email")}
-            required
-            id="email-input"
-            label="Email"
-            type="text"
-            variant="standard"
-            error={Boolean(errors.email || getCredError("email"))}
-            helperText={errors.email?.message || getCredError("email")}
-          />
-          <StyledTextField
-            {...register("password")}
-            required
-            id="password-input"
-            label="Password"
-            type="password"
-            variant="standard"
-            error={Boolean(errors.password || getCredError("password"))}
-            helperText={errors.password?.message || getCredError("password")}
-          />
+          {AUTH_INPUTS.map((input) => {
+            return (
+              <StyledTextField
+              {...register(input.name)}
+              key={input.name}
+                id={`${input.name}-input`}
+                label={`${input.label} *`}
+                type={input.name !== "password" ? "text" : "password"}
+                variant="standard"
+                error={Boolean(errors[input.name] || getCredError(input.name))}
+                helperText={
+                  errors[input.name]?.message || getCredError(input.name)
+                }
+              />
+            );
+          })}
           <Button
             style={{ margin: "30px 0" }}
             buttonType={BUTTON_TYPES.secondary}

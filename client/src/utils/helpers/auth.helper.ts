@@ -16,6 +16,7 @@ const handleAuthSubmit = async (
 
   // Checks if the Yup validation is successful
   if (!isValid) {
+    console.log(error)
     return {
       error,
     };
@@ -32,6 +33,7 @@ const handleAuthSubmit = async (
 
   // Retrieves the user data if successful, otherwise fetches the error message
   const result: UserData & { credentialErr: string } = await res.json();
+  console.log(result)
 
   return result;
 };
