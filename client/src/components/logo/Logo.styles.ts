@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
 
-const LogoLink = styled(Link)`
-  color: #3bd6c6;
-  font-size: 1.5rem;
+const StyledLogo = styled(Typography)`
+  color: black;
+  display: block;
   text-decoration: none;
+  transition: all 0.1s;
 `;
 
-export {LogoLink};
+export {StyledLogo};

@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import {
-  AuthContainer,
-  AuthInput,
-  FormContainer,
-  InputCont,
-} from "../auth.styles";
 import Logo from "../../logo/Logo";
 import Button, { BUTTON_TYPES } from "../../button/Button";
 import { SignUpData } from "../../../utils/validation/auth.schema";
@@ -14,6 +8,8 @@ import { useAppDispatch } from "../../../redux/hooks.redux";
 import { setUser } from "../../../redux/redux-slices/user.slice";
 import { UserData } from "../../header-user/HeaderUser";
 import { handleAuthSubmit } from "../../../utils/helpers/auth.helper";
+import { Box, Paper, Typography } from "@mui/material";
+import { StyledTextField } from "../auth.styles";
 
 const defaultFormFields: SignUpData = {
   username: "",
@@ -53,48 +49,74 @@ const SignUp = () => {
   };
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         display: "flex",
         flexDirection: "column",
+        rowGap: 3,
         alignItems: "center",
         paddingTop: "80px",
       }}
     >
-      <Logo />
-      <AuthContainer>
-        <h1>Sign Up</h1>
-        <FormContainer onSubmit={handleSignUp}>
-          <InputCont>
-            <h3>Username:</h3>
-            <AuthInput
-              name="username"
-              value={formFields.username}
-              onChange={handleChange}
-            />
-          </InputCont>
-          <InputCont>
-            <h3>Email:</h3>
-            <AuthInput
-              name="email"
-              value={formFields.email}
-              onChange={handleChange}
-            />
-          </InputCont>
-          <InputCont>
-            <h3>Password:</h3>
-            <AuthInput
-              name="password"
-              value={formFields.password}
-              onChange={handleChange}
-            />
-          </InputCont>
-          <Button buttonType={BUTTON_TYPES.secondary} type="submit">
+      <Logo variant="h3" />
+      <Paper
+        elevation={9}
+        sx={{
+          width: "500px",
+          height: "650px",
+          padding: "65px 50px",
+          borderRadius: 5,
+        }}
+      >
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            rowGap: 25,
+          }}
+          onSubmit={handleSignUp}
+        >
+          <StyledTextField
+            required
+            id="username-input"
+            label="Username"
+            type="text"
+            variant="standard"
+            onChange={handleChange}
+          />
+          <StyledTextField
+            required
+            id="email-input"
+            label="Email"
+            type="text"
+            variant="standard"
+            onChange={handleChange}
+          />
+          <StyledTextField
+            required
+            id="password-input"
+            label="Password"
+            type="password"
+            variant="standard"
+            onChange={handleChange}
+          />
+          <Button
+            style={{ margin: "30px 0" }}
+            buttonType={BUTTON_TYPES.secondary}
+            type="submit"
+          >
             Sign Up
           </Button>
-        </FormContainer>
-      </AuthContainer>
-    </div>
+          <Typography style={{ fontFamily: "DM Sans" }}>
+            Already have an account?{" "}
+            <Link style={{ color: "#3bd6c6" }} to="/sign-in">
+              Sign in!
+            </Link>
+          </Typography>
+        </form>
+      </Paper>
+    </Box>
   );
 };
 

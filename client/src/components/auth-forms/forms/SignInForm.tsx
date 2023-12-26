@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  AuthContainer,
-  AuthInput,
-  FormContainer,
-  InputCont,
-} from "../auth.styles";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../logo/Logo";
 import Button, { BUTTON_TYPES } from "../../button/Button";
 import { handleAuthSubmit } from "../../../utils/helpers/auth.helper";
@@ -13,6 +7,8 @@ import { SignInData } from "../../../utils/validation/auth.schema";
 import { useAppDispatch } from "../../../redux/hooks.redux";
 import { setUser } from "../../../redux/redux-slices/user.slice";
 import { UserData } from "../../header-user/HeaderUser";
+import { StyledTextField } from "../auth.styles";
+import { Box, Paper, Typography } from "@mui/material";
 
 const defaultFormFields: SignInData = {
   email: "",
@@ -51,32 +47,66 @@ const SignIn = () => {
   };
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         display: "flex",
         flexDirection: "column",
+        rowGap: 3,
         alignItems: "center",
         paddingTop: "80px",
       }}
     >
-      <Logo />
-      <AuthContainer>
-        <h1>Sign In</h1>
-        <FormContainer onSubmit={handleSignIn}>
-          <InputCont>
-            <h3>Email:</h3>
-            <AuthInput name="email" onChange={handleChange} />
-          </InputCont>
-          <InputCont>
-            <h3>Password:</h3>
-            <AuthInput name="password" onChange={handleChange} />
-          </InputCont>
-          <Button buttonType={BUTTON_TYPES.secondary} type="submit">
+      <Logo variant="h3" />
+      <Paper
+        elevation={9}
+        sx={{
+          width: "500px",
+          height: "650px",
+          padding: "70px 50px",
+          borderRadius: 5,
+        }}
+      >
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            rowGap: 25,
+          }}
+          onSubmit={handleSignIn}
+        >
+          <StyledTextField
+            required
+            id="email-input"
+            label="Email"
+            type="text"
+            variant="standard"
+            onChange={handleChange}
+          />
+          <StyledTextField
+            required
+            id="password-input"
+            label="Password"
+            type="password"
+            variant="standard"
+            onChange={handleChange}
+          />
+          <Button
+            style={{ margin: "40px 0" }}
+            buttonType={BUTTON_TYPES.secondary}
+            type="submit"
+          >
             Sign In
           </Button>
-        </FormContainer>
-      </AuthContainer>
-    </div>
+          <Typography style={{ fontFamily: "DM Sans" }}>
+            Don't have an account yet?{" "}
+            <Link style={{ color: "#3bd6c6" }} to="/sign-up">
+              Sign Up!
+            </Link>
+          </Typography>
+        </form>
+      </Paper>
+    </Box>
   );
 };
 

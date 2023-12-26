@@ -1,45 +1,27 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
-import { HeaderCont, HeaderLink, Logo } from "./Header.styles";
+import { AppBar, Container, Toolbar } from "@mui/material";
+import { HeaderCont, HeaderLink } from "./Header.styles";
 import AuthBtns from "../header-auth-btns/AuthBtns";
 import HeaderUser from "../header-user/HeaderUser";
 import { useAppSelector } from "../../redux/hooks.redux";
 import { headerLinks } from "../../constants";
+import Logo from "../logo/Logo";
 
-const Header = () => {
+const Header = ({ activePage }: { activePage: string }) => {
   const { isLoggedIn, username, email } = useAppSelector((state) => state.user);
-
-  // return (
-  //   <>
-  //     <HeaderContainer className="header-container">
-  //       <HeaderSection className="header-section-left">
-  //         <HeaderLink to="recipes">Recipes</HeaderLink>
-  //         <HeaderLink to="about">About us</HeaderLink>
-  //         <HeaderLink to="library">Library</HeaderLink>
-  //       </HeaderSection>
-  //       <HeaderSection className="header-section-center">
-  //         <Logo/>
-  //       </HeaderSection>
-  //       <HeaderSection className="header-section-right">
-  //         {isLoggedIn ? <HeaderUser username={username} email={email} /> : <AuthBtns />}
-  //       </HeaderSection>
-  //     </HeaderContainer>
-  //     <Outlet />
-  //   </>
-  // );
 
   return (
     <>
-      <AppBar position="static" sx={{ background: "#effffe" }}>
+      <AppBar position="static" sx={{ background: "#effffe"}}>
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
-            sx={{ display: "flex", justifyContent: "space-between" }}
+            sx={{ display: "flex", justifyContent: "space-between", height: 70, alignItems: "center" }}
           >
             <HeaderCont
               sx={{
-                justifyContent: {xs: "space-between", lg: "space-evenly"},
+                justifyContent: { xs: "space-between", lg: "space-evenly" },
               }}
             >
               {headerLinks.map((headerLink) => {
@@ -52,6 +34,9 @@ const Header = () => {
                         fontFamily: "DM Sans",
                         fontWeight: 300,
                       }}
+                      className={
+                        activePage === headerLink.link ? "active-page-link" : ""
+                      }
                     >
                       {headerLink.name}
                     </HeaderLink>
@@ -65,20 +50,7 @@ const Header = () => {
                 pb: 1,
               }}
             >
-                <Logo
-                  variant="h5"
-                  noWrap
-                  component="a"
-                  href="/"
-                  sx={{
-                    fontFamily: "Dancing Script",
-                    textDecoration: "none",
-                    fontSize: "3rem",
-                    fontWeight: 500,
-                  }}
-                >
-                  Recipefy
-                </Logo>
+              <Logo variant="h3" />
             </HeaderCont>
             <HeaderCont
               sx={{

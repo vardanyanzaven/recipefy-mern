@@ -18,7 +18,7 @@ const HeaderLink = styled(Typography)`
   &::after {
     content: "";
     position: absolute;
-    bottom: 0;
+    bottom: 0.1em;
     left: 0;
     width: 100%;
     height: 0.1em;
@@ -27,17 +27,15 @@ const HeaderLink = styled(Typography)`
     opacity: 1;
     transform: translate3d(-100%, 0, 0);
   }
-
+  
   &:hover::after,
   &:focus::after {
     transform: translate3d(0, 0, 0);
   }
+
+  &.active-page-link::after {
+    transform: translate3d(0, 0, 0);
+  }
 `;
 
-const Logo = styled(Typography)`
-  color: black;
-  text-decoration: none;
-  transition: all 0.1s;
-`;
-
-export { HeaderLink, Logo, HeaderCont };
+export { HeaderLink, HeaderCont };
