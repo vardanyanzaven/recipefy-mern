@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import helmet from "helmet";
 import cors, { CorsOptions } from "cors";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.router";
 
 const app = express();
@@ -17,6 +18,8 @@ app.use(express.json());
 app.use(
   cors(corsOptions)
 );
+
+app.use(cookieParser());
 
 app.use(morgan("common"));
 

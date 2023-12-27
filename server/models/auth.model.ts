@@ -32,7 +32,6 @@ const signUpUser = async ({ username, email, password }: Credentials) => {
   const hash = await bcrypt.hash(password, salt);
 
   const user = await usersDB.create({ username, email, password: hash });
-  console.log(user);
 
   return user;
 };

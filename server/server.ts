@@ -1,5 +1,4 @@
 import { createServer } from "https";
-import { resolve } from "path";
 import { readFileSync } from "fs";
 import dotenv from "dotenv";
 
