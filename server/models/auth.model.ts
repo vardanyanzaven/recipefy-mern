@@ -3,8 +3,8 @@ import usersDB from "./auth.mongo";
 import { Credentials } from "../routes/auth.controller";
 import validator from "validator";
 
-const signUpUser = async ({ username, email, password }: Credentials) => {
-  if (!username || !email || !password) {
+const signUpUser = async ({ username, email, password, age, calories, intolerances }: Credentials) => {
+  if (!username || !email || !password || !age || !calories || !intolerances) {
     throw new Error("All fields must be filled");
   };
 
@@ -31,7 +31,7 @@ const signUpUser = async ({ username, email, password }: Credentials) => {
   const salt: string = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
-  const user = await usersDB.create({ username, email, password: hash });
+  const user = await usersDB.create({ username, email, password: hash, age, calories, intolerances });
 
   return user;
 };

@@ -13,6 +13,9 @@ export type Credentials = {
   username?: string;
   email: string;
   password: string;
+  age?: number;
+  calories?: number;
+  intolerances?: string[];
 };
 
 const httpSignUpUser = async (req: Request, res: Response) => {

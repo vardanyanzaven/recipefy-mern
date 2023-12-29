@@ -14,6 +14,18 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
+    },
+    age: {
+        type: Number,
+        required: true,
+    },
+    calories: {
+        type: Number,
+        required: true,
+    },
+    intolerances: {
+        type: [String],
+        required: true,
     }
 });
 
