@@ -1,5 +1,6 @@
 import React from "react";
 import { StyledLogo } from "./Logo.styles";
+import { Link } from "react-router-dom";
 
 type LogoProps = {
   variant:
@@ -22,19 +23,19 @@ type LogoProps = {
 
 const Logo = ({ variant }: LogoProps) => {
   return (
-    <StyledLogo
-      variant={variant}
-      noWrap
-      component="a"
-      href="/"
-      sx={{
-        fontFamily: "Dancing Script",
-        textDecoration: "none",
-        fontWeight: 500,
-      }}
-    >
-      Recipefy
-    </StyledLogo>
+    <Link to="/" style={{textDecoration: "none"}}>
+      <StyledLogo
+        variant={variant}
+        noWrap
+        sx={{
+          fontFamily: "Dancing Script",
+          textDecoration: "none",
+          fontWeight: 500,
+        }}
+      >
+        Recipefy
+      </StyledLogo>
+    </Link>
   );
 };
 

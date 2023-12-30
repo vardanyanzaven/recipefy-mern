@@ -1,30 +1,54 @@
 import React, { useState } from "react";
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import SignIn from "./components/auth-forms/forms/SignInForm";
 import SignUp from "./components/auth-forms/forms/SignUpForm";
 import RecipesPage from "./pages/RecipesPage";
 import AboutPage from "./pages/AboutPage";
 import LibraryPage from "./pages/LibraryPage";
+import { ThemeProvider, createTheme } from "@mui/material";
+
+const globalTheme = createTheme({
+  typography: {
+    fontFamily: [
+      "DM Sans",
+      "Segoe UI",
+      "Roboto",
+      "Oxygen",
+      "Ubuntu",
+      "Cantarell",
+      "Fira Sans",
+      "Droid Sans",
+      "Helvetica Neue",
+    ].join(","),
+  },
+});
 
 function App() {
   const [activePage, setActivePage] = useState("");
   console.log(activePage);
 
   return (
-    <>
+    <ThemeProvider theme={globalTheme}>
       <Routes>
         <Route path="/" element={<Header activePage={activePage} />}>
-          <Route path="recipes" element={<RecipesPage setActivePage={setActivePage}/>} />
-          <Route path="about" element={<AboutPage setActivePage={setActivePage}/>} />
+          <Route
+            path="recipes"
+            element={<RecipesPage setActivePage={setActivePage} />}
+          />
+          <Route
+            path="about"
+            element={<AboutPage setActivePage={setActivePage} />}
+          />
           <Route
             path="library"
-            element={<LibraryPage setActivePage={setActivePage}/>} />
+            element={<LibraryPage setActivePage={setActivePage} />}
+          />
         </Route>
-        <Route path="sign-in" element={<SignIn />} />
-        <Route path="sign-up" element={<SignUp />} />
+        <Route path="signin" element={<SignIn />} />
+        <Route path="signup" element={<SignUp />} />
       </Routes>
-    </>
+    </ThemeProvider>
   );
 }
 

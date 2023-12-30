@@ -28,8 +28,7 @@ const HeaderLink = styled(Typography)`
     transform: translate3d(-100%, 0, 0);
   }
   
-  &:hover::after,
-  &:focus::after {
+  &:hover::after {
     transform: translate3d(0, 0, 0);
   }
 

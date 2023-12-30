@@ -2,7 +2,6 @@ import { Button } from "@mui/material";
 import styled from "styled-components";
 
 const BaseButton = styled.button`
-  font-family: "DM Sans";
   font-size: 1.5rem;
   text-transform: capitalize;
   min-width: 120px;

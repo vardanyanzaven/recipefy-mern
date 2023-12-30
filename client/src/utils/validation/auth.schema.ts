@@ -10,10 +10,11 @@ export type ValidationData = {
   error?: string;
 };
 
-export type SignUpData = {
+export type SignUpData = SignInData & {
   username: string;
-  email: string;
-  password: string;
+  age: number;
+  calories: number;
+  intolerances: string[];
 };
 
 export type ValidationFn = (
@@ -21,7 +22,7 @@ export type ValidationFn = (
 ) => Promise<ValidationData>;
 
 const signInSchema: Yup.ObjectSchema<SignInData> = Yup.object().shape({
-  email: Yup.string().email().required("Email is required"),
+  email: Yup.string().email("Email is not valid").required("Email is required"),
   password: Yup.string()
     .required("Password is required")
     .matches(
@@ -32,11 +33,22 @@ const signInSchema: Yup.ObjectSchema<SignInData> = Yup.object().shape({
     .max(25, "Password must not be longer than 25 characters"),
 });
 
-const signUpSchema = signInSchema.shape({
+const signUpSchema: Yup.ObjectSchema<SignUpData> = signInSchema.shape({
   username: Yup.string()
     .required("Username is required")
     .min(3, "Username must be at least 3 characters long")
-    .max(25, "Username ust be no longer than 25 characters"),
+    .max(25, "Username must be no longer than 25 characters"),
+  age: Yup.number()
+    .required("Age is required")
+    .typeError("Age must be a number")
+    .min(16, "Age be higher than 16")
+    .max(90, "Age must be lower than 90"),
+  calories: Yup.number()
+    .required("Calorie intake is required")
+    .typeError("Calorie intake must be a number")
+    .min(1200, "Daily calorie intake should not be lower than 1200")
+    .max(3500, "Daily calorie intake should not be higher than 3500"),
+  intolerances: Yup.array().required("Intolerances are required"),
 });
 
 const validateFormData = async (

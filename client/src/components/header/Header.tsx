@@ -17,7 +17,7 @@ const Header = ({ activePage }: { activePage: string }) => {
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
-            sx={{ display: "flex", justifyContent: "space-between", height: 70, alignItems: "center" }}
+            sx={{ display: "flex", justifyContent: "space-between", height: 80, alignItems: "center" }}
           >
             <HeaderCont
               sx={{
@@ -31,7 +31,6 @@ const Header = ({ activePage }: { activePage: string }) => {
                       noWrap
                       variant="h6"
                       sx={{
-                        fontFamily: "DM Sans",
                         fontWeight: 300,
                       }}
                       className={

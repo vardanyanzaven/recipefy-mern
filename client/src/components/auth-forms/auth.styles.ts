@@ -1,27 +1,55 @@
-import { Paper, TextField } from "@mui/material";
 import styled from "styled-components";
+import { Box, MenuProps } from "@mui/material";
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
-    width: "100%",
-    fontFamily: "DM Sans",
-    fontSize: "1.1em",
-    '& label.Mui-focused': {
-      color: "#3bd6c6",
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: "#3bd6c6",
-    },
-    '& .MuiInputLabel-root': {
-      fontFamily: "DM Sans",
-      fontSize: "1.1em",
-      '&.Mui-focused': {
-        fontSize: "1.1em",
+export const AuthContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  align-items: center;
+  padding-top: 80px;
+`;
+
+export const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 25px;
+`;
+
+export const InputsContainer = styled(Box)`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 60px;
+`;
+
+export const InputContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  row-gap: 30px;
+`;
+
+export const MenuStyles: Partial<MenuProps> = {
+  anchorOrigin: {
+    vertical: "bottom",
+    horizontal: "left",
+  },
+  transformOrigin: {
+    vertical: "top",
+    horizontal: "left",
+  },
+  PaperProps: {
+      sx: {
+        borderRadius: "25px", 
+        bgcolor: 'white',
+        '.MuiMenuItem-root': {
+          padding: 1.5,
+          '&.Mui-selected': {
+            background: "#e4fffe"
+          }
+        },
       },
-    },
-    '& .MuiInputBase-input': {
-      fontFamily: "DM Sans",
-      padding: "7px 5px 10px 5px",
-    },
-   }));
-
-export {StyledTextField};
+  },
+};

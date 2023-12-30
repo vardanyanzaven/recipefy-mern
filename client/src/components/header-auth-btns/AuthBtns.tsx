@@ -5,10 +5,10 @@ import Button, { BUTTON_TYPES } from "../button/Button";
 const AuthBtns = () => {
   return (
     <>
-      <Link to="sign-in">
+      <Link to="signin">
         <Button>Sign in</Button>
       </Link>
-      <Link to="sign-up">
+      <Link to="signup">
         <Button buttonType={BUTTON_TYPES.secondary}>Sign Up</Button>
       </Link>
     </>

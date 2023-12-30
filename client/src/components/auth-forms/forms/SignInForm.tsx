@@ -1,112 +1,55 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Box, Paper, Typography } from "@mui/material";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import React from "react";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Paper, Typography } from "@mui/material";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import Logo from "../../logo/Logo";
 import Button, { BUTTON_TYPES } from "../../button/Button";
-import { handleAuthSubmit } from "../../../utils/helpers/auth.helper";
+import { AuthContainer, StyledForm } from "../auth.styles";
+import useAuth from "../../../utils/hooks/useAuth";
+import AuthInput from "../../inputs/AuthInput";
 import {
   SignInData,
   signInSchema,
 } from "../../../utils/validation/auth.schema";
-import { useAppDispatch } from "../../../redux/hooks.redux";
-import { setUser } from "../../../redux/redux-slices/user.slice";
-import { UserData } from "../../header-user/HeaderUser";
-import { StyledTextField } from "../auth.styles";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { AUTH_INPUTS } from "../../../constants";
+import { SIGN_IN_INPUTS } from "../../../constants";
 
 const SignIn = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-  } = useForm({ resolver: yupResolver(signInSchema) });
-  const [credErrorMssg, setCredErrorMssg] = useState("");
+  } = useForm<SignInData>({ resolver: yupResolver(signInSchema) });
 
-  const getCredError = (inputName: string) => {
-    if (
-      (inputName === "email" || inputName === "password") &&
-      credErrorMssg.toLowerCase().includes(inputName)
-    ) {
-      return credErrorMssg;
-    }
-  };
-
-  const handleSignIn: SubmitHandler<FieldValues> = async (data) => {
-    const signInData = data as SignInData;
-    const result = await handleAuthSubmit(signInData, "sign-in");
-
-    // Checks if there were any errors during validation
-    if (result.hasOwnProperty("validationErr")) {
-      return;
-    }
-
-    // Checks if there were any errors during authentication
-    if (result.hasOwnProperty("credentialErr")) {
-      console.log("Asd");
-      const credErrResult = result as UserData & { credentialErr: string };
-      setCredErrorMssg(credErrResult.credentialErr);
-      return;
-    }
-
-    // Sets user's state to the user data
-    dispatch(setUser(result as UserData));
-
-    // Resets the form fields
-    reset();
-
-    // Redirects to home page
-    navigate("/");
-  };
+  // Requires signInSchema for react-hook-form
+  const { getCredError, handleAuthSubmit } = useAuth(signInSchema);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        rowGap: 3,
-        alignItems: "center",
-        paddingTop: "80px",
-      }}
-    >
+    <AuthContainer>
       <Logo variant="h3" />
       <Paper
         elevation={9}
         sx={{
           width: "500px",
-          height: "650px",
-          padding: "70px 50px",
+          minHeight: "650px",
+          height: "fit-content",
+          padding: "80px 50px",
           borderRadius: 5,
         }}
       >
-        <form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            rowGap: 25,
-          }}
-          onSubmit={handleSubmit(handleSignIn)}
+        <StyledForm
+          noValidate
+          onSubmit={handleSubmit((data) => handleAuthSubmit(data, "signin"))}
         >
-          {AUTH_INPUTS.map((input) => {
-            if(input.name === "username") return "";
+          {SIGN_IN_INPUTS.map((input) => {
             return (
-              <StyledTextField
-                {...register(input.name)}
+              <AuthInput
                 key={input.name}
-                id={`${input.name}-input`}
-                label={`${input.label} *`}
-                type={input.name !== "password" ? "text" : "password"}
-                variant="standard"
-                error={Boolean(errors[input.name] || getCredError(input.name))}
-                helperText={
-                  errors[input.name]?.message || getCredError(input.name)
-                }
+                input={input}
+                getCredError={getCredError}
+                errors={errors}
+                register={register}
               />
             );
           })}
@@ -117,15 +60,15 @@ const SignIn = () => {
           >
             Sign In
           </Button>
-          <Typography style={{ fontFamily: "DM Sans" }}>
+          <Typography>
             Don't have an account yet?{" "}
-            <Link style={{ color: "#3bd6c6" }} to="/sign-up">
+            <Link style={{ color: "#3bd6c6" }} to="/signup">
               Sign Up!
             </Link>
           </Typography>
-        </form>
+        </StyledForm>
       </Paper>
-    </Box>
+    </AuthContainer>
   );
 };
 
