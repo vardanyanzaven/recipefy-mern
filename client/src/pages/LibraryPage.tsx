@@ -7,7 +7,7 @@ const LibraryPage = ({
 }) => {
   useEffect(() => {
     setActivePage("library");
-  }, []);
+  });
   return <div>LibraryPage</div>;
 };
 

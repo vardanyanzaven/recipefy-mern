@@ -55,7 +55,7 @@ const SignIn = () => {
           })}
           <Button
             style={{ margin: "40px 0" }}
-            buttonType={BUTTON_TYPES.secondary}
+            buttonType={BUTTON_TYPES.colored}
             type="submit"
           >
             Sign In

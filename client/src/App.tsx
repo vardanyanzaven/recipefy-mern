@@ -9,6 +9,15 @@ import LibraryPage from "./pages/LibraryPage";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 const globalTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 620,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    }
+  },
   typography: {
     fontFamily: [
       "DM Sans",
@@ -26,23 +35,25 @@ const globalTheme = createTheme({
 
 function App() {
   const [activePage, setActivePage] = useState("");
-  console.log(activePage);
 
   return (
     <ThemeProvider theme={globalTheme}>
       <Routes>
-        <Route path="/" element={<Header activePage={activePage} />}>
+        <Route path="/" element={<Header activePage={activePage} setActivePage={setActivePage} />}>
           <Route
             path="recipes"
-            element={<RecipesPage setActivePage={setActivePage} />}
+            
+            element={<RecipesPage setActivePage={setActivePage}/>}
           />
           <Route
             path="about"
-            element={<AboutPage setActivePage={setActivePage} />}
+         
+            element={<AboutPage setActivePage={setActivePage}/>}
           />
           <Route
             path="library"
-            element={<LibraryPage setActivePage={setActivePage} />}
+            
+            element={<LibraryPage setActivePage={setActivePage}/>}
           />
         </Route>
         <Route path="signin" element={<SignIn />} />

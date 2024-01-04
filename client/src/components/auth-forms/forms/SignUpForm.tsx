@@ -131,7 +131,7 @@ const SignUp = () => {
           </InputsContainer>
           <Button
             style={{ margin: "30px 0" }}
-            buttonType={BUTTON_TYPES.secondary}
+            buttonType={BUTTON_TYPES.colored}
             type="submit"
           >
             Sign Up
@@ -139,7 +139,7 @@ const SignUp = () => {
           <Typography>
             Already have an account?{" "}
             <Link style={{ color: "#3bd6c6" }} to="/signin">
-              Sign in!
+              Sign In!
             </Link>
           </Typography>
         </StyledForm>

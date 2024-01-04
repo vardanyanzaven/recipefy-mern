@@ -1,10 +1,10 @@
 import React, { ButtonHTMLAttributes, ReactNode } from "react";
-import { BaseButton, SecondaryButton } from "./Button.styles";
+import { BaseButton, ColoredButton } from "./Button.styles";
 import { ButtonOwnProps } from "@mui/material";
 
 enum BUTTON_TYPES {
   base = "base",
-  secondary = "secondary",
+  colored = "colored",
 }
 
 type ButtonProps = {
@@ -22,8 +22,8 @@ const Button = ({
     case undefined || BUTTON_TYPES.base:
       ButtonEl = <BaseButton {...otherProps}>{children}</BaseButton>;
       break;
-    case BUTTON_TYPES.secondary:
-      ButtonEl = <SecondaryButton {...otherProps}>{children}</SecondaryButton>;
+    case BUTTON_TYPES.colored:
+      ButtonEl = <ColoredButton {...otherProps}>{children}</ColoredButton>;
       break;
   };
   return ButtonEl;

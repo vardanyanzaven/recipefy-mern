@@ -46,8 +46,8 @@ const signUpSchema: Yup.ObjectSchema<SignUpData> = signInSchema.shape({
   calories: Yup.number()
     .required("Calorie intake is required")
     .typeError("Calorie intake must be a number")
-    .min(1200, "Daily calorie intake should not be lower than 1200")
-    .max(3500, "Daily calorie intake should not be higher than 3500"),
+    .min(1200, "Average calorie intake should not be lower than 1200")
+    .max(3500, "Average calorie intake should not be higher than 3500"),
   intolerances: Yup.array().required("Intolerances are required"),
 });
 

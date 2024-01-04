@@ -9,7 +9,7 @@ const AuthBtns = () => {
         <Button>Sign in</Button>
       </Link>
       <Link to="signup">
-        <Button buttonType={BUTTON_TYPES.secondary}>Sign Up</Button>
+        <Button buttonType={BUTTON_TYPES.colored}>Sign Up</Button>
       </Link>
     </>
   );

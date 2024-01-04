@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import { StyledLogo } from "./Logo.styles";
 import { Link } from "react-router-dom";
 
@@ -19,22 +19,23 @@ type LogoProps = {
     | "subtitle2"
     | "overline"
     | undefined;
-};
+}
 
 const Logo = ({ variant }: LogoProps) => {
+
   return (
-    <Link to="/" style={{textDecoration: "none"}}>
-      <StyledLogo
-        variant={variant}
-        noWrap
-        sx={{
-          fontFamily: "Dancing Script",
-          textDecoration: "none",
-          fontWeight: 500,
-        }}
-      >
-        Recipefy
-      </StyledLogo>
+    <Link to="/" style={{ textDecoration: "none" }}>
+        <StyledLogo
+          variant={variant}
+          noWrap
+          sx={{
+            fontFamily: "Dancing Script",
+            textDecoration: "none",
+            fontWeight: 500,
+          }}
+        >
+          Recipefy
+        </StyledLogo>
     </Link>
   );
 };

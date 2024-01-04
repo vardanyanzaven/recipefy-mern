@@ -46,7 +46,6 @@ type SignUpConstants = {
   }[];
 };
 
-
 export const SIGN_UP_INPUTS: SignUpConstants = {
   user: [
     {
@@ -64,7 +63,7 @@ export const SIGN_UP_INPUTS: SignUpConstants = {
       step: 1,
     },
     {
-      label: "Daily calorie intake",
+      label: "Average calorie intake",
       name: "calories",
       type: "number",
       step: 100,
@@ -81,31 +80,44 @@ export const SIGN_UP_INPUTS: SignUpConstants = {
 export const INPUT_LIMITS = {
   age: {
     min: 16,
-    max: 90
+    max: 90,
   },
   calories: {
     min: 1200,
-    max: 3500
-  }
+    max: 3500,
+  },
 };
 
 export const FOOD_INTOLERANCES = [
-  { name: "None", value: "none" },
-  { name: "Gluten", value: "gluten" },
-  { name: "Dairy", value: "dairy" },
-  { name: "Eggs", value: "eggs" },
-  { name: "Soy", value: "soy" },
-  { name: "Peanuts", value: "peanuts" },
-  { name: "Tree nuts", value: "treeNuts" },
-  { name: "Sesame", value: "sesame" },
-  { name: "Mustard", value: "mustard" },
-  { name: "Celery", value: "celery" },
-  { name: "Sulfite", value: "sulfite" },
-  { name: "Lupine", value: "lupine" },
-  { name: "Molluscs", value: "molluscs" },
-  { name: "Fish", value: "fish" },
-  { name: "Crustaceans", value: "crustaceans" },
-  { name: "Shellfish", value: "shellfish" },
-  { name: "Wheat", value: "wheat" },
+  { name: "None", value: "None" },
+  { name: "FODMAP", value: "FODMAP" },
+  { name: "Gluten", value: "Gluten" },
+  { name: "Shellfish", value: "Shellfish" },
+  { name: "Soy", value: "Soy" },
+  { name: "Sulfites", value: "Sulfites" },
+  { name: "Tree Nuts", value: "Tree-Nuts" },
+  { name: "Wheat", value: "Wheat" },
+  // { name: "Eggs", value: "eggs" },
+  // { name: "Milk", value: "Milk" },
+  // { name: "Peanuts", value: "peanuts" },
+  // { name: "Mustard", value: "mustard" },
+  // { name: "Celery", value: "celery" },
+  // { name: "Lupine", value: "lupine" },
+  // { name: "Molluscs", value: "molluscs" },
+  // { name: "Fish", value: "fish" },
+  // { name: "Crustaceans", value: "crustaceans" },
+  // { name: "Shellfish", value: "shellfish" },
 ];
 
+// new Set([
+//   "gluten free",
+//   "dairy free",
+//   "lacto ovo vegetarian",
+//   "vegan",
+//   "paleolithic",
+//   "primal",
+//   "whole 30",
+//   "pescatarian",
+//   "ketogenic",
+//   "fodmap friendly"
+// ])

@@ -5,22 +5,22 @@ const setIntolerances = (
   newValue: string[],
   setValue: UseFormSetValue<SignUpData>
 ) => {
-  // If an intolerance is selected the first time, remove "none" from the list
-  if (newValue.at(0) === "none") {
+  // If an intolerance is selected the first time, remove "None" from the list
+  if (newValue.at(0) === "None") {
     setValue(
       "intolerances",
-      newValue.filter((item) => item !== "none")
+      newValue.filter((item) => item !== "None")
       );
   }
 
-  // If "none" is selected when there are selected intolerances, set intolerances to "none"
-  else if (newValue.at(-1) === "none") {
-    setValue("intolerances", ["none"]);
+  // If "None" is selected when there are selected intolerances, set intolerances to "none"
+  else if (newValue.at(-1) === "None") {
+    setValue("intolerances", ["None"]);
   }
 
-  // If all options are deselected, select "none"
+  // If all options are deselected, select "None"
   else if (newValue.length === 0) {
-    setValue("intolerances", ["none"]);
+    setValue("intolerances", ["None"]);
   }
 
   // Otherwise, just set the new value

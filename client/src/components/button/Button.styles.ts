@@ -18,7 +18,7 @@ const BaseButton = styled.button`
   }
 `;
 
-const SecondaryButton = styled(BaseButton)`
+const ColoredButton = styled(BaseButton)`
   background-color: #3bd6c6;
 
   &:hover {
@@ -27,4 +27,4 @@ const SecondaryButton = styled(BaseButton)`
   }
 `;
 
-export { BaseButton, SecondaryButton };
+export { BaseButton, ColoredButton };

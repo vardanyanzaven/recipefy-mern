@@ -7,7 +7,7 @@ const AboutPage = ({
 }) => {
   useEffect(() => {
     setActivePage("about");
-  }, []);
+  });
   return <div>AboutPage</div>;
 };
 

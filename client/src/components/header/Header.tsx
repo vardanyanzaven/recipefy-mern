@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { AppBar, Container, Toolbar } from "@mui/material";
+import { AppBar, Box, Container, Toolbar } from "@mui/material";
 import { HeaderCont, HeaderLink } from "./Header.styles";
 import AuthBtns from "../header-auth-btns/AuthBtns";
 import HeaderUser from "../header-user/HeaderUser";
@@ -8,16 +8,31 @@ import { useAppSelector } from "../../redux/hooks.redux";
 import { headerLinks } from "../../constants";
 import Logo from "../logo/Logo";
 
-const Header = ({ activePage }: { activePage: string }) => {
+const Header = ({
+  activePage,
+  setActivePage,
+}: {
+  activePage: string;
+  setActivePage: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const { isLoggedIn, username, email } = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    setActivePage("");
+  }, []);
 
   return (
     <>
-      <AppBar position="static" sx={{ background: "#effffe"}}>
+      <AppBar position="fixed" sx={{ background: "#effffe" }}>
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
-            sx={{ display: "flex", justifyContent: "space-between", height: 80, alignItems: "center" }}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              height: 80,
+              alignItems: "center",
+            }}
           >
             <HeaderCont
               sx={{
@@ -49,7 +64,9 @@ const Header = ({ activePage }: { activePage: string }) => {
                 pb: 1,
               }}
             >
-              <Logo variant="h3" />
+              <Box onClick={() => setActivePage("")}>
+                <Logo variant="h3" />
+              </Box>
             </HeaderCont>
             <HeaderCont
               sx={{
