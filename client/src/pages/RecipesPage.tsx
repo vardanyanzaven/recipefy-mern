@@ -51,7 +51,7 @@ const RecipesPage = ({
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            rowGap: 7,
+            rowGap: 8,
           }}
         >
           <Grid
@@ -151,9 +151,9 @@ const RecipesPage = ({
             onChange={(e, value) => setPage(value)}
             sx={{
               ".Mui-selected": {
-                background: "#3bd6c6",
+                background: "#3bd6c6 !important",
                 "&:hover": {
-                  background: "#3bd6c6",
+                  background: "#3bd6c6 !important",
                 },
               },
             }}
