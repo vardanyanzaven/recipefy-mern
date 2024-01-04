@@ -1,43 +1,69 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useRecipes from "../utils/hooks/useRecipes";
-import { Box, Card, CardMedia, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardMedia,
+  Grid,
+  Pagination,
+  Typography,
+} from "@mui/material";
 import Spinner from "../components/spinner/Spinner";
 import Button, { BUTTON_TYPES } from "../components/button/Button";
+
+export type RecipeInfo = {
+  title: string;
+  sourceUrl: string;
+  imageUrl: string;
+  ingredients: string[];
+  instructions: object[];
+  calories: { name: string; amount: number; unit: string };
+  readyInMinutes: number;
+  servings: number;
+  diets: string[];
+};
 
 const RecipesPage = ({
   setActivePage,
 }: {
   setActivePage: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const { recipes, isLoading } = useRecipes();
+  const [page, setPage] = useState(1);
+  const { recipes, isLoading } = useRecipes(page);
 
   useEffect(() => {
     setActivePage("recipes");
   });
 
   return (
-    <Box sx={{ marginTop: 15 }}>
+    <Box
+      sx={{
+        padding: "125px 0 50px 0",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       {isLoading ? (
         <Spinner />
       ) : (
-        <Grid
-          container
-          sx={{ padding: "0 40px" }}
-          columnSpacing={2}
-          rowSpacing={3}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            rowGap: 7,
+          }}
         >
-          {recipes.map(
-            (recipe: {
-              title: string;
-              sourceUrl: string;
-              imageUrl: string;
-              ingredients: string[];
-              instructions: object[];
-              calories: { name: string; amount: number; unit: string };
-              readyInMinutes: number;
-              servings: number;
-              diets: string[];
-            }) => {
+          <Grid
+            container
+            sx={{
+              padding: "0 40px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+            spacing={3}
+          >
+            {recipes.map((recipe: RecipeInfo) => {
               return (
                 <Grid
                   item
@@ -51,14 +77,14 @@ const RecipesPage = ({
                   <Box
                     display="flex"
                     justifyContent="center"
-                    alignItems="center"
                     style={{ width: "100%" }}
                   >
                     <Card
                       sx={{
-                        width: 275,
+                        width: 300,
                         height: 350,
                         borderRadius: "15px",
+                        boxShadow: "0 1px 5px rgba(0, 0, 0, 0.5)",
                       }}
                     >
                       <CardMedia
@@ -70,7 +96,7 @@ const RecipesPage = ({
                       <Box
                         sx={{
                           height: 175,
-                          padding: "10px 20px",
+                          padding: "10px 10px",
                           display: "flex",
                           flexDirection: "column",
                           alignItems: "center",
@@ -78,7 +104,10 @@ const RecipesPage = ({
                         }}
                       >
                         <Typography
-                          sx={{ textAlign: "center", fontSize: "15px" }}
+                          sx={{
+                            textAlign: "center",
+                            fontSize: "15px",
+                          }}
                         >
                           {recipe.title}
                         </Typography>
@@ -103,10 +132,8 @@ const RecipesPage = ({
                           buttonType={BUTTON_TYPES.colored}
                           style={{
                             fontSize: "18px",
-                            width: "100px",
-                            position: "relative",
-                            bottom: 0,
                           }}
+                          // onClick={}
                         >
                           View More
                         </Button>
@@ -115,9 +142,23 @@ const RecipesPage = ({
                   </Box>
                 </Grid>
               );
-            }
-          )}
-        </Grid>
+            })}
+          </Grid>
+          <Pagination
+            size="large"
+            count={10}
+            page={page}
+            onChange={(e, value) => setPage(value)}
+            sx={{
+              ".Mui-selected": {
+                background: "#3bd6c6",
+                "&:hover": {
+                  background: "#3bd6c6",
+                },
+              },
+            }}
+          />
+        </Box>
       )}
     </Box>
   );

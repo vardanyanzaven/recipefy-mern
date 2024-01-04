@@ -13,10 +13,10 @@ const globalTheme = createTheme({
     values: {
       xs: 0,
       sm: 620,
-      md: 900,
+      md: 850,
       lg: 1200,
       xl: 1536,
-    }
+    },
   },
   typography: {
     fontFamily: [
@@ -39,21 +39,23 @@ function App() {
   return (
     <ThemeProvider theme={globalTheme}>
       <Routes>
-        <Route path="/" element={<Header activePage={activePage} setActivePage={setActivePage} />}>
+        <Route
+          path="/"
+          element={
+            <Header activePage={activePage} setActivePage={setActivePage} />
+          }
+        >
           <Route
             path="recipes"
-            
-            element={<RecipesPage setActivePage={setActivePage}/>}
+            element={<RecipesPage setActivePage={setActivePage} />}
           />
           <Route
             path="about"
-         
-            element={<AboutPage setActivePage={setActivePage}/>}
+            element={<AboutPage setActivePage={setActivePage} />}
           />
           <Route
             path="library"
-            
-            element={<LibraryPage setActivePage={setActivePage}/>}
+            element={<LibraryPage setActivePage={setActivePage} />}
           />
         </Route>
         <Route path="signin" element={<SignIn />} />

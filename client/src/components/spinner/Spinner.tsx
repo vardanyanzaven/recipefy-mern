@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
 const Spinner = () => {
   return (
@@ -8,10 +8,8 @@ const Spinner = () => {
         sx={{
           color: "#3bd6c6",
           animationDuration: "1000ms",
-          position: "relative",
-          left: "50%",
         }}
-        size={60}
+        size={70}
         thickness={4}
       />
   );

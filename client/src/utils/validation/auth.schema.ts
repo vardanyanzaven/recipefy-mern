@@ -14,7 +14,7 @@ export type SignUpData = SignInData & {
   username: string;
   age: number;
   calories: number;
-  intolerances: string[];
+  diets: string[];
 };
 
 export type ValidationFn = (
@@ -43,12 +43,8 @@ const signUpSchema: Yup.ObjectSchema<SignUpData> = signInSchema.shape({
     .typeError("Age must be a number")
     .min(16, "Age be higher than 16")
     .max(90, "Age must be lower than 90"),
-  calories: Yup.number()
-    .required("Calorie intake is required")
-    .typeError("Calorie intake must be a number")
-    .min(1200, "Average calorie intake should not be lower than 1200")
-    .max(3500, "Average calorie intake should not be higher than 3500"),
-  intolerances: Yup.array().required("Intolerances are required"),
+  calories: Yup.number().required("Daily number of meals is required"),
+  diets: Yup.array().required("Diets are required"),
 });
 
 const validateFormData = async (

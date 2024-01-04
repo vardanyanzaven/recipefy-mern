@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 
-const useRecipes = () => {
+const useRecipes = (page: number) => {
+    console.log(page)
     const [recipes, setRecipes] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const getRecipes = useCallback(async () => {
         setIsLoading(true);
-        const res = await fetch("https://localhost:8000/recipes");
+        const res = await fetch(`https://localhost:8000/recipes?page=${page}`);
         setRecipes(await res.json());
         setIsLoading(false);
-    }, []);
+    }, [page]);
 
     useEffect(() => {
         getRecipes();

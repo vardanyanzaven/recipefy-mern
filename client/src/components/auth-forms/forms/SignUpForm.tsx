@@ -1,7 +1,18 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Controller, UseFormRegister, useForm } from "react-hook-form";
-import { InputLabel, MenuItem, Paper, Select, Typography } from "@mui/material";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Radio,
+  RadioGroup,
+  Select,
+  Typography,
+} from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import Logo from "../../logo/Logo";
@@ -18,9 +29,13 @@ import {
   MenuStyles,
   StyledForm,
 } from "../auth.styles";
-import { FOOD_INTOLERANCES, SIGN_UP_INPUTS } from "../../../constants";
+import {
+  FOOD_DIETS,
+  MEAL_COUNT_OPTIONS,
+  SIGN_UP_INPUTS,
+} from "../../../constants";
 import useAuth from "../../../utils/hooks/useAuth";
-import setIntolerances from "../../../utils/helpers/setIntolerances";
+import setDiets from "../../../utils/helpers/setDiets";
 import AuthInput from "../../inputs/AuthInput";
 
 const SignUp = () => {
@@ -33,7 +48,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm<SignUpData>({ resolver: yupResolver(signUpSchema) });
 
-  console.log("intols ", watch("intolerances"));
+  console.log("intols ", watch("diets"));
 
   // Requires signUpSchema for react-hook-form
   const { getCredError, handleAuthSubmit } = useAuth(signUpSchema);
@@ -53,7 +68,6 @@ const SignUp = () => {
         <StyledForm
           noValidate
           onSubmit={handleSubmit((data) => {
-            console.log(data);
             handleAuthSubmit(data, "signup");
           })}
         >
@@ -75,7 +89,7 @@ const SignUp = () => {
             </InputContainer>
             <InputContainer>
               {SIGN_UP_INPUTS.nutrition.map((input) => {
-                return input.name !== "intolerances" ? (
+                return input.name === "age" ? (
                   <AuthInput
                     key={input.name}
                     input={input}
@@ -85,24 +99,58 @@ const SignUp = () => {
                       register as UseFormRegister<SignInData | SignUpData>
                     }
                   />
-                ) : (
+                ) : input.name === "calories" ? (
+                  <FormControl>
+                    <FormLabel
+                      sx={{
+                        marginBottom: "10px",
+                        "&.Mui-focused": { color: "#3bd6c6" },
+                      }}
+                    >
+                      {input.label}
+                    </FormLabel>
+                    <Controller
+                      name="calories"
+                      control={control}
+                      defaultValue={700}
+                      render={({ field }) => (
+                        <RadioGroup {...field} row>
+                          {MEAL_COUNT_OPTIONS.map((option) => {
+                            return (
+                              <FormControlLabel
+                                value={option.calories}
+                                control={
+                                  <Radio
+                                    sx={{
+                                      "&.Mui-checked": { color: "#3bd6c6" },
+                                    }}
+                                  />
+                                }
+                                label={option.name}
+                              />
+                            );
+                          })}
+                        </RadioGroup>
+                      )}
+                    />
+                  </FormControl>
+                ) : input.name === "diets" ? (
                   <Fragment key={input.name}>
-                    <InputLabel sx={{ marginBottom: "-20px" }}>
-                      Intolerances *
+                    <InputLabel
+                      sx={{ fontSize: "18px", margin: "-20px 0 -25px 0" }}
+                    >
+                      Diets
                     </InputLabel>
                     <Controller
-                      name="intolerances"
-                      defaultValue={["none"]}
+                      name="diets"
                       control={control}
+                      defaultValue={["none"]}
                       render={({ field }) => (
                         <Select
                           multiple
                           {...field}
                           onChange={(e) =>
-                            setIntolerances(
-                              e.target.value as string[],
-                              setValue
-                            )
+                            setDiets(e.target.value as string[], setValue)
                           }
                           MenuProps={MenuStyles}
                           sx={{
@@ -113,8 +161,9 @@ const SignUp = () => {
                               border: "2px solid #3bd6c6 !important",
                             },
                           }}
+                          defaultValue={["none"]}
                         >
-                          {FOOD_INTOLERANCES.map((intol) => {
+                          {FOOD_DIETS.map((intol) => {
                             return (
                               <MenuItem key={intol.value} value={intol.value}>
                                 {intol.name}
@@ -125,7 +174,7 @@ const SignUp = () => {
                       )}
                     />
                   </Fragment>
-                );
+                ) : null;
               })}
             </InputContainer>
           </InputsContainer>

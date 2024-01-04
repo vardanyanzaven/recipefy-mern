@@ -40,7 +40,7 @@ type SignUpConstants = {
   }[];
   nutrition: {
     label: string;
-    name: "age" | "calories" | "intolerances";
+    name: "age" | "calories" | "diets";
     type: string;
     step?: number;
   }[];
@@ -63,15 +63,16 @@ export const SIGN_UP_INPUTS: SignUpConstants = {
       step: 1,
     },
     {
-      label: "Average calorie intake",
+      label: "Daily number of meals",
+      // Each option will have a fixed number of calories
       name: "calories",
-      type: "number",
-      step: 100,
+      // Type doesn't matter since it needs MUI's RadioGroup component
+      type: "radio",
     },
     {
-      label: "Intolerances",
-      name: "intolerances",
-      // The type doesn't matter for this one since it needs MUI's Select component
+      label: "Diets",
+      name: "diets",
+      // Type doesn't matter since it needs MUI's Select component
       type: "select",
     },
   ],
@@ -82,42 +83,29 @@ export const INPUT_LIMITS = {
     min: 16,
     max: 90,
   },
-  calories: {
-    min: 1200,
-    max: 3500,
-  },
 };
 
-export const FOOD_INTOLERANCES = [
-  { name: "None", value: "None" },
-  { name: "FODMAP", value: "FODMAP" },
-  { name: "Gluten", value: "Gluten" },
-  { name: "Shellfish", value: "Shellfish" },
-  { name: "Soy", value: "Soy" },
-  { name: "Sulfites", value: "Sulfites" },
-  { name: "Tree Nuts", value: "Tree-Nuts" },
-  { name: "Wheat", value: "Wheat" },
-  // { name: "Eggs", value: "eggs" },
-  // { name: "Milk", value: "Milk" },
-  // { name: "Peanuts", value: "peanuts" },
-  // { name: "Mustard", value: "mustard" },
-  // { name: "Celery", value: "celery" },
-  // { name: "Lupine", value: "lupine" },
-  // { name: "Molluscs", value: "molluscs" },
-  // { name: "Fish", value: "fish" },
-  // { name: "Crustaceans", value: "crustaceans" },
-  // { name: "Shellfish", value: "shellfish" },
+export const MEAL_COUNT_OPTIONS = [
+  {
+    name: "2-3 meals",
+    calories: 700,
+  },
+  {
+    name: "4 or more",
+    calories: 500,
+  },
 ];
 
-// new Set([
-//   "gluten free",
-//   "dairy free",
-//   "lacto ovo vegetarian",
-//   "vegan",
-//   "paleolithic",
-//   "primal",
-//   "whole 30",
-//   "pescatarian",
-//   "ketogenic",
-//   "fodmap friendly"
-// ])
+export const FOOD_DIETS = [
+  { name: "None", value: "none" },
+  { name: "Dairy Free", value: "dairy free" },
+  { name: "FODMAP Friendly", value: "fodmap friendly" },
+  { name: "Gluten Free", value: "gluten free" },
+  { name: "Ketogenic", value: "ketogenic" },
+  { name: "Lacto Ovo Vegetarian", value: "lacto ovo vegetarian" },
+  { name: "Paleolithic", value: "paleolithic" },
+  { name: "Pescatarian", value: "pescatarian" },
+  { name: "Primal", value: "primal" },
+  { name: "Vegan", value: "vegan" },
+  { name: "Whole 30", value: "whole 30" },
+];

@@ -5,7 +5,6 @@ import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { INPUT_LIMITS } from "../../constants";
 
 const { min: ageMin, max: ageMax } = INPUT_LIMITS.age;
-const { min: calMin, max: calMax } = INPUT_LIMITS.calories;
 
 const AuthInput = ({
   input,
@@ -21,7 +20,7 @@ const AuthInput = ({
       | "password"
       | "age"
       | "calories"
-      | "intolerances";
+      | "diets";
     type: string;
     step?: number;
   };
@@ -38,18 +37,8 @@ const AuthInput = ({
       variant="standard"
       inputProps={{
         type: input.type,
-        min:
-          input.name === "age"
-            ? ageMin
-            : input.name === "calories"
-            ? calMin
-            : null,
-        max:
-          input.name === "age"
-            ? ageMax
-            : input.name === "calories"
-            ? calMax
-            : null,
+        min: ageMin,
+        max: ageMax,
         step: input.step ? input.step : null,
       }}
       error={Boolean(errors[input.name] || getCredError(input.name))}
