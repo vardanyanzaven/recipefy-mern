@@ -1,14 +1,16 @@
-import { Button } from "@mui/material";
+import { Typography } from "@mui/material";
 import styled from "styled-components";
 
-const BaseButton = styled.button`
-  font-size: 1.5rem;
+const BaseButton = styled(Typography)`
+  font-size: 1.3rem !important;
   text-transform: capitalize;
-  min-width: 120px;
+  text-align: center;
+  min-width: 100px;
   height: 45px;
+  padding: 5px 15px !important;
   background-color: transparent;
   border: 2px solid #3bd6c6;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
   transition: all 0.2s;
 
@@ -20,6 +22,7 @@ const BaseButton = styled.button`
 
 const ColoredButton = styled(BaseButton)`
   background-color: #3bd6c6;
+  padding: 5px 10px !important;
 
   &:hover {
     background-color: #00a8b8;

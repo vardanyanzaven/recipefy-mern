@@ -3,9 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import SignIn from "./components/auth-forms/forms/SignInForm";
 import SignUp from "./components/auth-forms/forms/SignUpForm";
-import RecipesPage from "./pages/RecipesPage";
-import AboutPage from "./pages/AboutPage";
-import LibraryPage from "./pages/LibraryPage";
+import RecipesPage from "./pages/recipes/RecipesPage";
+import AboutPage from "./pages/about/AboutPage";
+import LibraryPage from "./pages/library/LibraryPage";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 const globalTheme = createTheme({
@@ -13,7 +13,7 @@ const globalTheme = createTheme({
     values: {
       xs: 0,
       sm: 620,
-      md: 850,
+      md: 920,
       lg: 1200,
       xl: 1536,
     },

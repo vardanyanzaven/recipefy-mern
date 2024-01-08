@@ -14,6 +14,7 @@ const HeaderLink = styled(Typography)`
   overflow: hidden;
   display: inline-block;
   position: relative;
+  cursor: pointer;
 
   &::after {
     content: "";

@@ -1,4 +1,4 @@
-export const headerLinks = [
+export const HEADER_LINKS = [
   {
     name: "Recipes",
     link: "recipes",

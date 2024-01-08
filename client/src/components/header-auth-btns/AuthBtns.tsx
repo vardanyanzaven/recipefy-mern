@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button, { BUTTON_TYPES } from "../button/Button";
+import StyledButton, { BUTTON_TYPES } from "../button/StyledButton";
 
 const AuthBtns = () => {
   return (
     <>
-      <Link to="signin">
-        <Button>Sign in</Button>
+      <Link to="signin" style={{ textDecoration: "none", color: "black" }}>
+        <StyledButton>Sign in</StyledButton>
       </Link>
-      <Link to="signup">
-        <Button buttonType={BUTTON_TYPES.colored}>Sign Up</Button>
+      <Link to="signup" style={{ textDecoration: "none", color: "black" }}>
+        <StyledButton buttonType={BUTTON_TYPES.colored}>Sign Up</StyledButton>
       </Link>
     </>
   );

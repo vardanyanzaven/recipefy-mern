@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
 const useRecipes = (page: number) => {
-    console.log(page)
     const [recipes, setRecipes] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 

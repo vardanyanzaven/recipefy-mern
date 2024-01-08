@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes, ReactNode } from "react";
-import { BaseButton, ColoredButton } from "./Button.styles";
-import { ButtonOwnProps } from "@mui/material";
+import { BaseButton, ColoredButton } from "./StyledButton.styles";
+import { TypographyOwnProps } from "@mui/material";
 
 enum BUTTON_TYPES {
   base = "base",
@@ -10,9 +10,9 @@ enum BUTTON_TYPES {
 type ButtonProps = {
   children?: ReactNode;
   buttonType?: BUTTON_TYPES;
-} & ButtonHTMLAttributes<HTMLButtonElement> & ButtonOwnProps;
+} & ButtonHTMLAttributes<HTMLButtonElement> & TypographyOwnProps;
 
-const Button = ({
+const StyledButton = ({
   buttonType,
   children,
   ...otherProps
@@ -29,4 +29,4 @@ const Button = ({
   return ButtonEl;
 };
 
-export { Button as default, BUTTON_TYPES };
+export { StyledButton as default, BUTTON_TYPES };

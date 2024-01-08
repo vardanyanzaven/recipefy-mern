@@ -5,7 +5,7 @@ import { Paper, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import Logo from "../../logo/Logo";
-import Button, { BUTTON_TYPES } from "../../button/Button";
+import StyledButton, { BUTTON_TYPES } from "../../button/StyledButton";
 import { AuthContainer, StyledForm } from "../auth.styles";
 import useAuth from "../../../utils/hooks/useAuth";
 import AuthInput from "../../inputs/AuthInput";
@@ -53,13 +53,13 @@ const SignIn = () => {
               />
             );
           })}
-          <Button
+          <StyledButton
             style={{ margin: "40px 0" }}
             buttonType={BUTTON_TYPES.colored}
             type="submit"
           >
             Sign In
-          </Button>
+          </StyledButton>
           <Typography>
             Don't have an account yet?{" "}
             <Link style={{ color: "#3bd6c6" }} to="/signup">

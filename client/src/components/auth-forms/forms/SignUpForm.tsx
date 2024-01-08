@@ -16,7 +16,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import Logo from "../../logo/Logo";
-import Button, { BUTTON_TYPES } from "../../button/Button";
+import StyledButton, { BUTTON_TYPES } from "../../button/StyledButton";
 import {
   SignInData,
   SignUpData,
@@ -178,13 +178,13 @@ const SignUp = () => {
               })}
             </InputContainer>
           </InputsContainer>
-          <Button
+          <StyledButton
             style={{ margin: "30px 0" }}
             buttonType={BUTTON_TYPES.colored}
             type="submit"
           >
             Sign Up
-          </Button>
+          </StyledButton>
           <Typography>
             Already have an account?{" "}
             <Link style={{ color: "#3bd6c6" }} to="/signin">
