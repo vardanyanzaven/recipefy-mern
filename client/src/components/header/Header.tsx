@@ -61,6 +61,7 @@ const Header = ({
               {HEADER_LINKS.map((headerLink) => {
                 return (
                   <HeaderLink
+                    key={headerLink.link}
                     noWrap
                     variant="h6"
                     sx={{

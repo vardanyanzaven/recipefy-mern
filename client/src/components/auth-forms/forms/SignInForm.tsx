@@ -20,7 +20,7 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInData>({ resolver: yupResolver(signInSchema) });
+  } = useForm<SignInData>({ resolver: yupResolver(signInSchema)});
 
   // Requires signInSchema for react-hook-form
   const { getCredError, handleAuthSubmit } = useAuth(signInSchema);
@@ -40,7 +40,7 @@ const SignIn = () => {
       >
         <StyledForm
           noValidate
-          onSubmit={handleSubmit((data) => handleAuthSubmit(data, "signin"))}
+          autoComplete="off"
         >
           {SIGN_IN_INPUTS.map((input) => {
             return (
@@ -56,7 +56,9 @@ const SignIn = () => {
           <StyledButton
             style={{ margin: "40px 0" }}
             buttonType={BUTTON_TYPES.colored}
-            type="submit"
+            onClick={handleSubmit((data) => {
+              handleAuthSubmit(data, "signup");
+            })}
           >
             Sign In
           </StyledButton>

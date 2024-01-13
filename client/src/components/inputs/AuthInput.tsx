@@ -28,6 +28,7 @@ const AuthInput = ({
   errors: FieldErrors<SignInData & SignUpData>;
   register: UseFormRegister<SignInData | SignUpData>;
 }) => {
+
   return (
     <StyledTextField
       {...register(input.name)}

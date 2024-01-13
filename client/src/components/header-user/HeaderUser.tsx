@@ -1,7 +1,7 @@
 import React from "react";
-import StyledButton from "../button/StyledButton";
 import { useAppDispatch } from "../../redux/hooks.redux";
 import { logoutUser } from "../../redux/redux-slices/user.slice";
+import StyledButton from "../button/StyledButton";
 
 export type UserData = {
   username: string;

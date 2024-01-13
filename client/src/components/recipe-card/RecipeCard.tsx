@@ -54,7 +54,7 @@ const RecipeCard = ({ recipe }: {recipe: RecipeInfo}) => {
               {briefInfo
                 .slice(0, 2)
                 .map((info: { name: string; value: string | number }) => (
-                  <Typography sx={{ fontSize: {xs: "0.9rem", md: "0.95rem"} }}>
+                  <Typography key={info.name} sx={{ fontSize: {xs: "0.9rem", md: "0.95rem"} }}>
                     {info.name}: {info.value}
                   </Typography>
                 ))}
@@ -64,7 +64,7 @@ const RecipeCard = ({ recipe }: {recipe: RecipeInfo}) => {
               {briefInfo
                 .slice(2, 4)
                 .map((info: { name: string; value: string | number }) => (
-                  <Typography sx={{ fontSize: {xs: "0.9rem", md: "0.95rem"} }}>
+                  <Typography key={info.name} sx={{ fontSize: {xs: "0.9rem", md: "0.95rem"} }}>
                     {info.name}: {info.value}
                   </Typography>
                 ))}

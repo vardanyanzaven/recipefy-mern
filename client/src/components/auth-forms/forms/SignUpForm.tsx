@@ -67,9 +67,7 @@ const SignUp = () => {
       >
         <StyledForm
           noValidate
-          onSubmit={handleSubmit((data) => {
-            handleAuthSubmit(data, "signup");
-          })}
+          autoComplete="off"
         >
           <InputsContainer>
             <InputContainer>
@@ -100,7 +98,7 @@ const SignUp = () => {
                     }
                   />
                 ) : input.name === "calories" ? (
-                  <FormControl>
+                  <FormControl key={input.name}>
                     <FormLabel
                       sx={{
                         marginBottom: "10px",
@@ -181,7 +179,9 @@ const SignUp = () => {
           <StyledButton
             style={{ margin: "30px 0" }}
             buttonType={BUTTON_TYPES.colored}
-            type="submit"
+            onClick={handleSubmit((data) => {
+              handleAuthSubmit(data, "signup");
+            })}
           >
             Sign Up
           </StyledButton>

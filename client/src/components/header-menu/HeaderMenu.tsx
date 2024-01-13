@@ -32,6 +32,7 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
         {HEADER_LINKS.map((headerLink) => {
           return (
             <MenuItem
+              key={headerLink.link}
               sx={{
                 width: "100vw",
                 ".MuiTouchRipple-child": {
