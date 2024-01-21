@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    intolerances: {
+    diets: {
         type: [String],
         required: true,
     }

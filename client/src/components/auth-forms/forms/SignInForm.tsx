@@ -27,7 +27,7 @@ const SignIn = () => {
 
   return (
     <AuthContainer>
-      <Logo variant="h3" />
+      <Logo />
       <Paper
         elevation={9}
         sx={{
@@ -57,7 +57,7 @@ const SignIn = () => {
             style={{ margin: "40px 0" }}
             buttonType={BUTTON_TYPES.colored}
             onClick={handleSubmit((data) => {
-              handleAuthSubmit(data, "signup");
+              handleAuthSubmit(data, "signin");
             })}
           >
             Sign In

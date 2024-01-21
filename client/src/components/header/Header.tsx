@@ -29,7 +29,7 @@ const Header = ({
   const isScreenSmall = useMediaQuery(theme.breakpoints.between("xs", "md"));
 
   const handleOpenLink = (link: string) => {
-    navigate(link);
+    link === "recipes" && navigate(link);
   };
 
   useEffect(() => {
@@ -37,8 +37,7 @@ const Header = ({
   }, []);
 
   return (
-    <>
-      <AppBar position="fixed" sx={{ background: "#effffe" }}>
+      <AppBar position="fixed" sx={{ background: "#d0fdfd"}}>
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
@@ -49,7 +48,25 @@ const Header = ({
               alignItems: "center",
             }}
           >
-            <HeaderCont sx={{ display: { sm: "flex", md: "none" } }}>
+            <HeaderCont
+              sx={{
+                justifyContent: "center",
+                pb: 1,
+                display: {
+                  xs: "flex",
+                  sm: "none",
+                  flexGrow: 0,
+                  marginLeft: 10,
+                },
+              }}
+            >
+              <Box onClick={() => setActivePage("")}>
+                <Logo />
+              </Box>
+            </HeaderCont>
+            <HeaderCont
+              sx={{ display: { xs: "none", sm: "flex", md: "none" } }}
+            >
               <HeaderMenu activePage={activePage} />
             </HeaderCont>
             <HeaderCont
@@ -67,9 +84,9 @@ const Header = ({
                     sx={{
                       fontWeight: 300,
                     }}
-                    className={
-                      activePage === headerLink.link ? "active-page-link" : ""
-                    }
+                    className={`${
+                      activePage === headerLink.link && "active-page-link"
+                    } ${headerLink.link !== "recipes" && "disabled"}`}
                     onClick={() => handleOpenLink(headerLink.link)}
                   >
                     {headerLink.name}
@@ -81,16 +98,30 @@ const Header = ({
               sx={{
                 justifyContent: "center",
                 pb: 1,
+                display: { xs: "none", sm: "flex" },
               }}
             >
               <Box onClick={() => setActivePage("")}>
-                <Logo variant={isScreenSmall ? "h4" : "h3"} />
+                <Logo />
               </Box>
+            </HeaderCont>
+            <HeaderCont
+              sx={{
+                display: {
+                  xs: "flex",
+                  sm: "none",
+                  flexGrow: 0,
+                  marginRight: 10,
+                },
+              }}
+            >
+              <HeaderMenu activePage={activePage} />
             </HeaderCont>
             <HeaderCont
               sx={{
                 justifyContent: "flex-end",
                 columnGap: { xs: 1.5, md: 3 },
+                display: { xs: "none", sm: "flex" },
               }}
             >
               {isLoggedIn ? (
@@ -102,8 +133,6 @@ const Header = ({
           </Toolbar>
         </Container>
       </AppBar>
-      <Outlet />
-    </>
   );
 };
 

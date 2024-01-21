@@ -48,14 +48,14 @@ const SignUp = () => {
     formState: { errors },
   } = useForm<SignUpData>({ resolver: yupResolver(signUpSchema) });
 
-  console.log("intols ", watch("diets"));
+  console.log("intols", watch("diets"));
 
   // Requires signUpSchema for react-hook-form
   const { getCredError, handleAuthSubmit } = useAuth(signUpSchema);
 
   return (
     <AuthContainer>
-      <Logo variant="h3" />
+      <Logo />
       <Paper
         elevation={9}
         sx={{

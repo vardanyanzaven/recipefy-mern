@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useRecipes from "../../utils/hooks/useRecipes";
-import { Box, Card, CardMedia, Grid, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Spinner from "../../components/spinner/Spinner";
-import Button, { BUTTON_TYPES } from "../../components/button/StyledButton";
 import CustomPagination from "../../components/pagination/CustomPagination";
 import { RecipeInfo } from "./RecipesPage.types";
 import RecipeCard from "../../components/recipe-card/RecipeCard";
@@ -25,7 +24,6 @@ const RecipesPage = ({
         padding: "125px 0 50px 0",
         display: "flex",
         justifyContent: "center",
-        overflow: "auto"
       }}
     >
       {isLoading ? (

@@ -1,9 +1,9 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import helmet from "helmet";
 import cors, { CorsOptions } from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
-import authRouter from "./routes/auth.router";
+import apiRouter from "./routes/apiRouters";
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use(cookieParser());
 
 app.use(morgan("common"));
 
-app.use("/auth", authRouter);
+app.use("/", apiRouter);
 
 // TODO: Add res.sendFile for index.html in server/public
 

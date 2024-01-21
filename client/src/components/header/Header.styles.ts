@@ -16,6 +16,15 @@ const HeaderLink = styled(Typography)`
   position: relative;
   cursor: pointer;
 
+  &.disabled {
+    color: gray;
+    cursor: default;
+
+    &::after {
+     opacity: 0;
+   }
+  }
+
   &::after {
     content: "";
     position: absolute;
@@ -28,7 +37,7 @@ const HeaderLink = styled(Typography)`
     opacity: 1;
     transform: translate3d(-100%, 0, 0);
   }
-  
+
   &:hover::after {
     transform: translate3d(0, 0, 0);
   }

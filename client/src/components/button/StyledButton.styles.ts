@@ -5,6 +5,7 @@ const BaseButton = styled(Typography)`
   font-size: 1.3rem !important;
   text-transform: capitalize;
   text-align: center;
+  color: black;
   min-width: 100px;
   height: 45px;
   padding: 5px 15px !important;

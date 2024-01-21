@@ -11,7 +11,7 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
   const navigate = useNavigate();
 
   const handleOpenLink = (link: string) => {
-    navigate(link);
+    link === "recipes" && navigate(link);
   };
 
   const closeMenu = () => {
@@ -26,22 +26,24 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
       <Menu
         anchorEl={anchorEl}
         open={isMenuOpen}
-        sx={{ marginTop: "20px" }}
+        sx={{ marginTop: "20px", display: {xs: "flex", md: "none"}  }}
         onClose={closeMenu}
       >
         {HEADER_LINKS.map((headerLink) => {
           return (
             <MenuItem
               key={headerLink.link}
+              disableRipple={headerLink.link !== "recipes"}
               sx={{
                 width: "100vw",
                 ".MuiTouchRipple-child": {
                   backgroundColor: "#4eecdc",
                 },
+                cursor: headerLink.link === "recipes" ? "pointer" : "default"
               }}
               onClick={() => {
                 handleOpenLink(headerLink.link);
-                closeMenu();
+                headerLink.link === "recipes" && closeMenu();
               }}
             >
               <HeaderLink
@@ -51,9 +53,9 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
                 sx={{
                   fontWeight: 300,
                 }}
-                className={
-                  activePage === headerLink.link ? "active-page-link" : ""
-                }
+                className={`${
+                  activePage === headerLink.link && "active-page-link"
+                } ${headerLink.link !== "recipes" && "disabled"}`}
               >
                 {headerLink.name}
               </HeaderLink>

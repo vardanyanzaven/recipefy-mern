@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { Types } from "mongoose";
-import { signInUser, signUpUser } from "../models/auth.model";
+import { signInUser, signUpUser } from "../../models/auth/auth.model";
 
 const createToken = (id: Types.ObjectId) => {
   return jwt.sign({ id }, process.env.JWT_SECRET as string, {
@@ -15,7 +15,7 @@ export type Credentials = {
   password: string;
   age?: number;
   calories?: number;
-  intolerances?: string[];
+  diets?: string[];
 };
 
 const httpSignUpUser = async (req: Request, res: Response) => {

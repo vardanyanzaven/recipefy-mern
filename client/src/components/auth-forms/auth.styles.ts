@@ -4,9 +4,12 @@ import { Box, MenuProps } from "@mui/material";
 export const AuthContainer = styled(Box)`
   display: flex;
   flex-direction: column;
-  row-gap: 30px;
   align-items: center;
-  padding-top: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  row-gap: 30px;
 `;
 
 export const StyledForm = styled.form`

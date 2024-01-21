@@ -37,7 +37,7 @@ const useAuth = (schema: Yup.ObjectSchema<SignUpData | SignInData>) => {
 
     // Checks if there were any errors during backend authentication
     if (result.hasOwnProperty("credentialErr")) {
-      const credErrResult = result as UserData & { credentialErr: string };
+      const credErrResult = result as { credentialErr: string };
       setCredErrorMssg(credErrResult.credentialErr);
       return;
     }

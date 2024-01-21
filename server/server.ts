@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import app from "./app";
 import { mongoConnect } from "./services/mongo";
+import { loadRecipes } from "./models/recipes/recipes.model";
 
 dotenv.config();
 
@@ -17,5 +18,6 @@ const server = createServer(
 
 server.listen(process.env.PORT as string, async () => {
   await mongoConnect();
+  await loadRecipes();
   console.log(`Server listening on port ${process.env.PORT}...`);
 });
