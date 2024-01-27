@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run watch --prefix server & npm start --prefix client"
+    "start": "npm run watch --prefix server & npm start --prefix client",
+    "install-all": "npm install && npm install --prefix client && npm install --prefix server"
   },
   "author": "",
   "license": "ISC"
