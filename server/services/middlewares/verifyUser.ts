@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 
-import usersDB from "../../models/auth.mongo";
+import usersDB from "../../models/auth/auth.mongo";
 
 dotenv.config();
 

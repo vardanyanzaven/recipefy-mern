@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import {
   getAllRecipes,
   getRecipeById,
-  populateRecipes,
 } from "../../models/recipes/recipes.model";
 
 const httpGetRecipes = async (req: Request, res: Response) => {

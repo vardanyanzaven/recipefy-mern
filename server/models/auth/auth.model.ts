@@ -13,15 +13,21 @@ const signUpUser = async ({
 }: Credentials) => {
   if (!username || !email || !password || !age || !calories || !diets) {
     throw new Error("All fields must be filled");
-  }
+  };
 
   if (!validator.isEmail(email)) {
     throw new Error("Email is not valid");
-  }
+  };
 
-  if (!validator.isStrongPassword(password)) {
+  if (!validator.isStrongPassword(password, {
+    minLength: 8,
+    minUppercase: 1,
+    minLowercase: 1,
+    minNumbers: 1,
+    minSymbols: 1
+  })) {
     throw new Error("Password is not strong enough");
-  }
+  };
 
   const exists = await usersDB.findOne({
     $or: [{ email }, { username }],
@@ -29,11 +35,11 @@ const signUpUser = async ({
 
   if (exists && exists.email === email) {
     throw new Error("Email already in use");
-  }
+  };
 
   if (exists && exists.username === username) {
     throw new Error("Username already in use");
-  }
+  };
 
   const salt: string = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);

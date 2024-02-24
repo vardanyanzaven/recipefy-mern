@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormHTMLAttributes } from "react";
 import { SignInData, SignUpData } from "../../utils/validation/auth.schema";
 import { StyledTextField } from "./AuthInput.styles";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
@@ -6,12 +6,7 @@ import { INPUT_LIMITS } from "../../constants";
 
 const { min: ageMin, max: ageMax } = INPUT_LIMITS.age;
 
-const AuthInput = ({
-  input,
-  getCredError,
-  errors,
-  register,
-}: {
+type AuthInputProps = {
   input: {
     label: string;
     name:
@@ -27,7 +22,14 @@ const AuthInput = ({
   getCredError: (inputName: string) => string | undefined;
   errors: FieldErrors<SignInData & SignUpData>;
   register: UseFormRegister<SignInData | SignUpData>;
-}) => {
+} & FormHTMLAttributes<HTMLInputElement>;
+
+const AuthInput = ({
+  input,
+  getCredError,
+  errors,
+  register,
+}: AuthInputProps) => {
 
   return (
     <StyledTextField

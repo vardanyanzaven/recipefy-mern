@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Controller, UseFormRegister, useForm } from "react-hook-form";
 import {
@@ -15,40 +15,37 @@ import {
 } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import Logo from "../../logo/Logo";
-import StyledButton, { BUTTON_TYPES } from "../../button/StyledButton";
+import Logo from "../logo/Logo";
+import StyledButton, { BUTTON_TYPES } from "../button/StyledButton";
 import {
   SignInData,
   SignUpData,
   signUpSchema,
-} from "../../../utils/validation/auth.schema";
+} from "../../utils/validation/auth.schema";
 import {
   AuthContainer,
   InputContainer,
   InputsContainer,
   MenuStyles,
   StyledForm,
-} from "../auth.styles";
+} from "./auth.styles";
 import {
   FOOD_DIETS,
   MEAL_COUNT_OPTIONS,
   SIGN_UP_INPUTS,
-} from "../../../constants";
-import useAuth from "../../../utils/hooks/useAuth";
-import setDiets from "../../../utils/helpers/setDiets";
-import AuthInput from "../../inputs/AuthInput";
+} from "../../constants";
+import useAuth from "../../utils/hooks/useAuth";
+import setDiets from "../../utils/helpers/setDiets";
+import AuthInput from "../inputs/AuthInput";
 
-const SignUp = () => {
+const SignUpForm = () => {
   const {
     register,
     handleSubmit,
     control,
     setValue,
-    watch,
     formState: { errors },
-  } = useForm<SignUpData>({ resolver: yupResolver(signUpSchema) });
-
-  console.log("intols", watch("diets"));
+  } = useForm<SignUpData>({ defaultValues: {diets: ["none"]}, resolver: yupResolver(signUpSchema) });
 
   // Requires signUpSchema for react-hook-form
   const { getCredError, handleAuthSubmit } = useAuth(signUpSchema);
@@ -65,15 +62,13 @@ const SignUp = () => {
           borderRadius: 5,
         }}
       >
-        <StyledForm
-          noValidate
-          autoComplete="off"
-        >
+        <StyledForm noValidate autoComplete="off">
           <InputsContainer>
             <InputContainer>
               {SIGN_UP_INPUTS.user.map((input) => {
                 return (
                   <AuthInput
+                    data-testid={input.name}
                     key={input.name}
                     input={input}
                     getCredError={getCredError}
@@ -112,23 +107,26 @@ const SignUp = () => {
                       control={control}
                       defaultValue={700}
                       render={({ field }) => (
-                        <RadioGroup {...field} row>
-                          {MEAL_COUNT_OPTIONS.map((option) => {
-                            return (
-                              <FormControlLabel
-                                value={option.calories}
-                                control={
-                                  <Radio
-                                    sx={{
-                                      "&.Mui-checked": { color: "#3bd6c6" },
-                                    }}
-                                  />
-                                }
-                                label={option.name}
-                              />
-                            );
-                          })}
-                        </RadioGroup>
+                        <div id="calories">
+                          <RadioGroup {...field} row>
+                            {MEAL_COUNT_OPTIONS.map((option) => {
+                              return (
+                                <FormControlLabel
+                                  key={option.calories}
+                                  value={option.calories}
+                                  control={
+                                    <Radio
+                                      sx={{
+                                        "&.Mui-checked": { color: "#3bd6c6" },
+                                      }}
+                                    />
+                                  }
+                                  label={option.name}
+                                />
+                              );
+                            })}
+                          </RadioGroup>
+                        </div>
                       )}
                     />
                   </FormControl>
@@ -146,6 +144,7 @@ const SignUp = () => {
                       render={({ field }) => (
                         <Select
                           multiple
+                          defaultValue={["none"]}
                           {...field}
                           onChange={(e) =>
                             setDiets(e.target.value as string[], setValue)
@@ -159,11 +158,10 @@ const SignUp = () => {
                               border: "2px solid #3bd6c6 !important",
                             },
                           }}
-                          defaultValue={["none"]}
                         >
                           {FOOD_DIETS.map((intol) => {
                             return (
-                              <MenuItem key={intol.value} value={intol.value}>
+                              <MenuItem key={intol.value} value={intol.value} data-testid="diets-opt">
                                 {intol.name}
                               </MenuItem>
                             );
@@ -180,6 +178,7 @@ const SignUp = () => {
             style={{ margin: "30px 0" }}
             buttonType={BUTTON_TYPES.colored}
             onClick={handleSubmit((data) => {
+              console.log(1);
               handleAuthSubmit(data, "signup");
             })}
           >
@@ -197,4 +196,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpForm;

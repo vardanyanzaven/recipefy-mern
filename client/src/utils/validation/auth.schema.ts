@@ -76,3 +76,5 @@ const validateSignIn: ValidationFn = (formData: SignInData | SignUpData) => {
 };
 
 export { signUpSchema, signInSchema, validateSignUp, validateSignIn };
+
+// (@$!%*#?&)

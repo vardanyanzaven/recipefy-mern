@@ -28,11 +28,10 @@ const handleAuth = async (formFields: SignInData | SignUpData, url: string) => {
     body: JSON.stringify(formFields),
   });
   
+  // Retrieves the user data if successful, otherwise fetches the error message
   const result: UserData & { credentialErr: string } = await res.json();
 
   return result;
-  // Retrieves the user data if successful, otherwise fetches the error message
-
 };
 
 export { handleAuth };

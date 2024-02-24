@@ -52,5 +52,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/css-mediaquery": "^0.1.4",
+    "css-mediaquery": "^0.1.2"
   }
 }

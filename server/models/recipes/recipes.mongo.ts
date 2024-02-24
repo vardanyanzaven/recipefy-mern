@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const recipesSchema = new mongoose.Schema({
   recipeId: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
   },
   title: {
     type: String,

@@ -8,12 +8,12 @@ mongoose.connection.on("error", (error: MongooseError): void => {
   console.error(error);
 });
 
-const mongoConnect = async () => {
-  await mongoose.connect(process.env.MONGO_DB_URL as string);
+const mongoConnect = async (mongoDBUrl: string) => {
+  await mongoose.connect(mongoDBUrl);
 };
 
-// const mongoDisconnect = async () => {
-//   await mongoose.disconnect();
-// };
+const mongoDisconnect = async () => {
+  await mongoose.disconnect();
+};
 
-export {mongoConnect};
+export {mongoConnect, mongoDisconnect};

@@ -20,10 +20,10 @@ const StyledButton = ({
   let ButtonEl: JSX.Element = <BaseButton {...otherProps}>{children}</BaseButton>;
   switch (buttonType) {
     case undefined || BUTTON_TYPES.base:
-      ButtonEl = <BaseButton {...otherProps}>{children}</BaseButton>;
+      ButtonEl = <BaseButton data-testid="button-base" {...otherProps}>{children}</BaseButton>;
       break;
     case BUTTON_TYPES.colored:
-      ButtonEl = <ColoredButton {...otherProps}>{children}</ColoredButton>;
+      ButtonEl = <ColoredButton data-testid="button-colored" {...otherProps}>{children}</ColoredButton>;
       break;
   };
   return ButtonEl;

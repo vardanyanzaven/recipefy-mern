@@ -18,7 +18,12 @@ const RecipeCard = ({ recipe }: { recipe: RecipeInfo }) => {
   ];
 
   return (
-    <Box display="flex" justifyContent="center" sx={{ width: "100%" }}>
+    <Box
+      data-testid="recipe-card"
+      display="flex"
+      justifyContent="center"
+      sx={{ width: "100%" }}
+    >
       <Card
         sx={{
           width: 320,
@@ -58,6 +63,7 @@ const RecipeCard = ({ recipe }: { recipe: RecipeInfo }) => {
                 .slice(0, 2)
                 .map((info: { name: string; value: string | number }) => (
                   <Typography
+                    data-testid={info.name}
                     key={info.name}
                     sx={{ fontSize: { xs: "0.9rem", md: "0.95rem" } }}
                   >
@@ -70,6 +76,7 @@ const RecipeCard = ({ recipe }: { recipe: RecipeInfo }) => {
                 .slice(2, 4)
                 .map((info: { name: string; value: string | number }) => (
                   <Typography
+                    data-testid={info.name}
                     key={info.name}
                     sx={{ fontSize: { xs: "0.9rem", md: "0.95rem" } }}
                   >
@@ -78,15 +85,16 @@ const RecipeCard = ({ recipe }: { recipe: RecipeInfo }) => {
                 ))}
             </BriefInfoBox>
           </Box>
-            <StyledButton
-              buttonType={BUTTON_TYPES.colored}
-              style={{
-                fontSize: "18px",
-              }}
-              onClick={() => navigate(recipe.recipeId)}
-            >
-              View More
-            </StyledButton>
+          <StyledButton
+            data-testid="view-more-btn"
+            buttonType={BUTTON_TYPES.colored}
+            style={{
+              fontSize: "18px",
+            }}
+            onClick={() => navigate(recipe.recipeId)}
+          >
+            View More
+          </StyledButton>
         </Box>
       </Card>
     </Box>

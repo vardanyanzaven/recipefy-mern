@@ -17,7 +17,7 @@ const server = createServer(
 );
 
 server.listen(process.env.PORT as string, async () => {
-  await mongoConnect();
+  await mongoConnect(process.env.MONGO_DB_URL as string);
   await loadRecipes();
   console.log(`Server listening on port ${process.env.PORT}...`);
 });

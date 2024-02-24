@@ -20,7 +20,7 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
 
   return (
     <>
-      <IconButton size="medium" onClick={(e) => setAnchorEl(e.currentTarget)}>
+      <IconButton data-testid="header-menu-btn" size="medium" onClick={(e) => setAnchorEl(e.currentTarget)}>
         <MenuIcon sx={{ color: "black" }} />
       </IconButton>
       <Menu
