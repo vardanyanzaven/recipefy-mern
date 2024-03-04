@@ -72,14 +72,14 @@ describe("Auth controller tests", () => {
     });
 
     it("returns a status code 400 and an error if an error occurs", async () => {
-        const res = await request(app)
+      const res = await request(app)
         .post("/auth/signin")
         .send({
           email: mockCredentials.email,
-          password: "wrongpass"
+          password: "wrongpass",
         })
         .expect(400);
-        expect(res.body.credentialErr).toBeDefined();
-    })
+      expect(res.body.credentialErr).toBeDefined();
+    });
   });
 });

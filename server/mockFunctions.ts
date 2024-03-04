@@ -1,4 +1,4 @@
-import { MealRecipe, ResRecipe } from "./models/recipes/recipes.model";
+import { MealRecipe, ResRecipe } from "./src/models/recipes/recipes.model";
 
 const mockRecipe: ResRecipe = {
   title: "Mock Recipe",

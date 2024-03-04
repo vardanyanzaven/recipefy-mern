@@ -8,7 +8,8 @@
     "test-client": "npm test --prefix client -- --watchAll=false",
     "test": "npm run test-server && npm run test-client",
     "start": "npm run watch --prefix server & npm start --prefix client",
-    "install-all": "npm install && npm install --prefix client && npm install --prefix server"
+    "install-all": "npm install && npm install --prefix client && npm install --prefix server",
+    "deploy": "npm run build --prefix client && npm start --prefix server"
   },
   "author": "",
   "license": "ISC"

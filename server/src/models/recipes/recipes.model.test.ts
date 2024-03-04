@@ -1,7 +1,7 @@
 import { mongoConnect, mongoDisconnect } from "../../services/mongo";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import recipesDB from "./recipes.mongo";
-import { mockFetchRecipes } from "../../mockFunctions";
+import { mockFetchRecipes } from "../../../mockFunctions";
 import * as recipesModel from "./recipes.model";
 
 const {
@@ -53,17 +53,17 @@ describe("Recipe model tests", () => {
     diets: [],
   };
 
-    describe("getAllRecipes, getRecipesById and saveRecipes tests", () => {
-      it("doesn't fetch more than 10 recipes", async () => {
-        const recipes = await getAllRecipes(1);
-        expect(recipes).toHaveLength(10);
+  describe("getAllRecipes, getRecipesById and saveRecipes tests", () => {
+    it("doesn't fetch more than 10 recipes", async () => {
+      const recipes = await getAllRecipes(1);
+      expect(recipes).toHaveLength(10);
 
-        await saveRecipe(mockRecipe);
+      await saveRecipe(mockRecipe);
 
-        const recipeById = await getRecipeById(mockRecipe.recipeId);
-        expect(recipeById).toBeDefined();
-      });
+      const recipeById = await getRecipeById(mockRecipe.recipeId);
+      expect(recipeById).toBeDefined();
     });
+  });
 
   describe("loadRecipes tests", () => {
     const consoleLogSpy = jest.spyOn(console, "log");

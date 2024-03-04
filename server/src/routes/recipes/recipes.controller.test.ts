@@ -6,7 +6,7 @@ import {
   getAllRecipes,
   populateRecipes,
 } from "../../models/recipes/recipes.model";
-import { mockFetchRecipes } from "../../mockFunctions";
+import { mockFetchRecipes } from "../../../mockFunctions";
 import supertest from "supertest";
 import app from "../../app";
 
@@ -51,7 +51,10 @@ describe("Recipes controller tests", () => {
 
   describe("httGetRecipe tests", () => {
     it("successfully fetches the recipe with id and returns a status code 200", async () => {
-      const res = await request(app).get("/recipes/mock-recipe-5").expect("Content-Type", /json/).expect(200);
+      const res = await request(app)
+        .get("/recipes/mock-recipe-5")
+        .expect("Content-Type", /json/)
+        .expect(200);
 
       expect(res.body).toHaveProperty("recipeId", "mock-recipe-5");
     });

@@ -51,7 +51,7 @@ const httpSignInUser = async (req: Request, res: Response) => {
     res.cookie("token", token, {
       httpOnly: false,
     });
-    
+
     return res.status(200).json({ username: user.username, email: user.email });
   } catch (err) {
     return res.status(400).json({ credentialErr: (err as Error).message });

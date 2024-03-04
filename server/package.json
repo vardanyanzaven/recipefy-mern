@@ -5,8 +5,8 @@
   "scripts": {
     "test": "jest --coverage",
     "test-watch": "jest --watch",
-    "start": "npx ts-node server.ts",
-    "watch": "nodemon server.ts"
+    "start": "npx ts-node src/server.ts",
+    "watch": "nodemon src/server.ts"
   },
   "keywords": [],
   "author": "",

@@ -20,7 +20,7 @@ const handleAuth = async (formFields: SignInData | SignUpData, url: string) => {
   }
 
   // POST-s sign up data to the backend
-  const res = await fetch(`https://localhost:8000/auth/${url}`, {
+  const res = await fetch(`https://localhost:8000/api/auth/${url}`, {
     headers: {
       "Content-Type": "application/json",
     },
