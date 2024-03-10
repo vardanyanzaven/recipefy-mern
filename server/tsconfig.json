@@ -112,5 +112,5 @@
       "@typings/*": ["../typings/*"]
     }
   },
-  "include": ["src", "../schemas", "../schemas"],
+  "include": ["src"],
 }
