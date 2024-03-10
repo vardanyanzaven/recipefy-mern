@@ -5,10 +5,10 @@
   "scripts": {
     "test": "jest",
     "test-watch": "jest --watch",
-    "start": "NODE_ENV=dev npx ts-node src/server.ts",
+    "start": "npx ts-node src/server.ts",
+    "start-prod": "node dist/server/server.js",
     "watch": "nodemon src/server.ts",
-    "build": "tsc --project tsconfig.build.json",
-    "start-prod": "node dist/server/server.js"
+    "build": "tsc --project tsconfig.build.json"
   },
   "keywords": [],
   "author": "",

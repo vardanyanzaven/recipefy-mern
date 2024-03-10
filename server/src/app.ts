@@ -28,12 +28,29 @@ app.use(cookieParser());
 
 app.use(morgan("common"));
 
-app.use(express.static(path.join(__dirname, "..", process.env.NODE_ENV === "dev" ? "dist" : "..", "public")));
+app.use(
+  express.static(
+    path.join(
+      __dirname,
+      "..",
+      process.env.NODE_ENV === "prod" ? ".." : "dist",
+      "public"
+    )
+  )
+);
 
 app.use("/api", apiRouter);
 
 app.get("/*", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "..", "public", "index.html"));
+  res.sendFile(
+    path.join(
+      __dirname,
+      "..",
+      process.env.NODE_ENV === "prod" ? ".." : "dist",
+      "public",
+      "index.html"
+    )
+  );
 });
 
 export default app;

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test-e2e": "NODE_ENV=test npm run deploy & npx cypress open",
+    "test-e2e": "NODE_ENV=test npm run deploy & npx cypress run",
     "test-server": "npm test --prefix server",
     "test-client": "npm test --prefix client -- --watchAll=false",
     "test": "npm run test-server && npm run test-client",

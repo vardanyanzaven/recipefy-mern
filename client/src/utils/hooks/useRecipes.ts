@@ -11,7 +11,7 @@ const useRecipes = (page?: number) => {
     setValues({ ...values, isLoading: true });
     const res = await fetch(`https://localhost:8000/api/recipes?page=${page}`);
     setValues({ recipes: await res.json(), isLoading: false });
-  }, [page, values]);
+  }, [page]);
 
   useEffect(() => {
     getRecipes();

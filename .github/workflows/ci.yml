@@ -5,11 +5,8 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
-    env:
-      CI: true
 
     steps:
       - uses: actions/checkout@v4
@@ -19,4 +16,5 @@ jobs:
         with:
           node-version: latest
       - run: npm run install-all
-      - run: npm run build --prefix client
+      - run: npm test
+      - run: npm run test-e2e

@@ -23,7 +23,7 @@ const httpSignUpUser = async (req: Request, res: Response) => {
     res.cookie("auth-token", token, {
       httpOnly: false,
     });
-    return res.status(201).json({ username: user.username, email: user.email });
+    return res.status(201).json({ username: user.username, email: user.email }).end();
   } catch (err) {
     console.log((err as Error).message);
     return res.status(400).json({ credentialErr: (err as Error).message });
@@ -44,7 +44,7 @@ const httpSignInUser = async (req: Request, res: Response) => {
       httpOnly: false,
     });
 
-    return res.status(200).json({ username: user.username, email: user.email });
+    return res.status(200).json({ username: user.username, email: user.email }).end();
   } catch (err) {
     return res.status(400).json({ credentialErr: (err as Error).message });
   }
