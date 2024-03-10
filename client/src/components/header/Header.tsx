@@ -25,8 +25,6 @@ const Header = ({
 }) => {
   const { isLoggedIn, username, email } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isScreenSmall = useMediaQuery(theme.breakpoints.between("xs", "md"));
 
   const handleOpenLink = (link: string) => {
     link === "recipes" && navigate(link);
