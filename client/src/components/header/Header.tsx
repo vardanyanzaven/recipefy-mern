@@ -5,8 +5,6 @@ import {
   Box,
   Container,
   Toolbar,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import { HeaderCont, HeaderLink } from "./Header.styles";
 import AuthBtns from "../header-auth-btns/AuthBtns";
@@ -32,7 +30,7 @@ const Header = ({
 
   useEffect(() => {
     setActivePage("");
-  }, []);
+  }, [setActivePage]);
 
   return (
       <AppBar data-testid="header" position="fixed" sx={{ background: "#d0fdfd"}}>
