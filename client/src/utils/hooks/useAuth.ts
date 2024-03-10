@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import { UserData, SignInData, SignUpData } from "@typings/auth";
 import { handleAuth } from "../helpers/handleAuth";
-import { UserData } from "../../components/header-user/HeaderUser";
 import { useAppDispatch } from "../../redux/hooks.redux";
 import { setUser } from "../../redux/redux-slices/user.slice";
-import { SignInData, SignUpData } from "../validation/auth.schema";
-import { useForm } from "react-hook-form";
 
 const useAuth = (schema: Yup.ObjectSchema<SignUpData | SignInData>) => {
   const [credErrorMssg, setCredErrorMssg] = useState("");
@@ -27,7 +25,10 @@ const useAuth = (schema: Yup.ObjectSchema<SignUpData | SignInData>) => {
     }
   };
 
-  const handleAuthSubmit = async (data: SignUpData | SignInData, url: string) => {
+  const handleAuthSubmit = async (
+    data: SignUpData | SignInData,
+    url: string
+  ) => {
     const result = await handleAuth(data, url);
 
     // Checks if there were any errors during Yup validation

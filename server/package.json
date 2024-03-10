@@ -1,12 +1,14 @@
 {
   "name": "recipefy-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.ts",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest",
     "test-watch": "jest --watch",
-    "start": "npx ts-node src/server.ts",
-    "watch": "nodemon src/server.ts"
+    "start": "NODE_ENV=dev npx ts-node src/server.ts",
+    "watch": "nodemon src/server.ts",
+    "build": "tsc --project tsconfig.build.json",
+    "start-prod": "node dist/server/server.js"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +31,6 @@
     "@types/cookie-parser": "^1.4.6",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/morgan": "^1.9.9",
-    "@types/multer": "^1.4.11",
     "@types/validator": "^13.11.7",
     "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
@@ -39,9 +40,8 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
-    "mongoose": "^8.0.3",
+    "mongoose": "^8.2.1",
     "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1",
     "validator": "^13.11.0"
   }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -37,7 +37,7 @@ const Header = ({
   }, []);
 
   return (
-      <AppBar position="fixed" sx={{ background: "#d0fdfd"}}>
+      <AppBar data-testid="header" position="fixed" sx={{ background: "#d0fdfd"}}>
         <Container maxWidth="xl">
           <Toolbar
             disableGutters

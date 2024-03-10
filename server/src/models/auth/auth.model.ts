@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import usersDB from "./auth.mongo";
-import { Credentials } from "../../routes/auth/auth.controller";
+import { SignInData, SignUpData } from "@typings/auth";
 import validator from "validator";
 
 const signUpUser = async ({
@@ -10,7 +10,7 @@ const signUpUser = async ({
   age,
   calories,
   diets,
-}: Credentials) => {
+}: SignUpData) => {
   if (!username || !email || !password || !age || !calories || !diets) {
     throw new Error("All fields must be filled");
   }
@@ -58,7 +58,7 @@ const signUpUser = async ({
   return user;
 };
 
-const signInUser = async ({ email, password }: Credentials) => {
+const signInUser = async ({ email, password }: SignInData) => {
   if (!email || !password) {
     throw new Error("All fields must be filled");
   }
@@ -84,4 +84,10 @@ const signInUser = async ({ email, password }: Credentials) => {
   return user;
 };
 
-export { signUpUser, signInUser };
+const deleteUser = async (username: string) => {
+  await usersDB.deleteOne({username});
+
+  return {};
+};
+
+export { signUpUser, signInUser, deleteUser };

@@ -3,6 +3,8 @@ import app from "../../app";
 import { mongoConnect, mongoDisconnect } from "../../services/mongo";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
+// TODO: Fix errors with Content-Type(expected json, but fetches charset=utf-8 instead)
+
 describe("Auth controller tests", () => {
   let mongoServer: MongoMemoryServer;
   beforeAll(async () => {
@@ -27,7 +29,7 @@ describe("Auth controller tests", () => {
   describe("Sign Up tests", () => {
     it("returns a status code 201, user info and sets the cookie", async () => {
       const res = await request(app)
-        .post("/auth/signup")
+        .post("/api/auth/signup")
         .send(mockCredentials)
         .expect("Content-Type", /json/)
         .expect(201);
@@ -43,7 +45,7 @@ describe("Auth controller tests", () => {
 
     it("returns a status code of 400 and an error if an error occurs", async () => {
       const res = await request(app)
-        .post("/auth/signup")
+        .post("/api/auth/signup")
         .send({ ...mockCredentials, username: "" })
         .expect(400);
 
@@ -54,7 +56,7 @@ describe("Auth controller tests", () => {
   describe("Sign In tests", () => {
     it("returns a status code 200, user info and sets the cookie", async () => {
       const res = await request(app)
-        .post("/auth/signin")
+        .post("/api/auth/signin")
         .send({
           email: mockCredentials.email,
           password: mockCredentials.password,
@@ -73,7 +75,7 @@ describe("Auth controller tests", () => {
 
     it("returns a status code 400 and an error if an error occurs", async () => {
       const res = await request(app)
-        .post("/auth/signin")
+        .post("/api/auth/signin")
         .send({
           email: mockCredentials.email,
           password: "wrongpass",

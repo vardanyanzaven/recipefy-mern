@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Controller, UseFormRegister, useForm } from "react-hook-form";
 import {
@@ -14,14 +14,10 @@ import {
   Typography,
 } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import { SignInData, SignUpData } from "@typings/auth";
 import Logo from "../logo/Logo";
 import StyledButton, { BUTTON_TYPES } from "../button/StyledButton";
-import {
-  SignInData,
-  SignUpData,
-  signUpSchema,
-} from "../../utils/validation/auth.schema";
+import { signUpSchema } from "../../utils/validation/auth.schema";
 import {
   AuthContainer,
   InputContainer,
@@ -45,7 +41,10 @@ const SignUpForm = () => {
     control,
     setValue,
     formState: { errors },
-  } = useForm<SignUpData>({ defaultValues: {diets: ["none"]}, resolver: yupResolver(signUpSchema) });
+  } = useForm<SignUpData>({
+    defaultValues: { diets: ["none"] },
+    resolver: yupResolver(signUpSchema),
+  });
 
   // Requires signUpSchema for react-hook-form
   const { getCredError, handleAuthSubmit } = useAuth(signUpSchema);
@@ -143,6 +142,7 @@ const SignUpForm = () => {
                       defaultValue={["none"]}
                       render={({ field }) => (
                         <Select
+                        data-testid="diets-input"
                           multiple
                           defaultValue={["none"]}
                           {...field}
@@ -161,7 +161,11 @@ const SignUpForm = () => {
                         >
                           {FOOD_DIETS.map((intol) => {
                             return (
-                              <MenuItem key={intol.value} value={intol.value} data-testid="diets-opt">
+                              <MenuItem
+                                key={intol.value}
+                                value={intol.value}
+                                data-testid="diets-opt"
+                              >
                                 {intol.name}
                               </MenuItem>
                             );
@@ -177,10 +181,7 @@ const SignUpForm = () => {
           <StyledButton
             style={{ margin: "30px 0" }}
             buttonType={BUTTON_TYPES.colored}
-            onClick={handleSubmit((data) => {
-              console.log(1);
-              handleAuthSubmit(data, "signup");
-            })}
+            onClick={handleSubmit((data) => handleAuthSubmit(data, "signup"))}
           >
             Sign Up
           </StyledButton>

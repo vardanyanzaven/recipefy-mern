@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, Card, CardMedia, Typography } from "@mui/material";
-import StyledButton, { BUTTON_TYPES } from "../button/StyledButton";
-import { RecipeInfo } from "../../pages/recipes/RecipesPage.types";
-import { BriefInfoBox } from "./RecipeCard.styles";
 import { useNavigate } from "react-router-dom";
+import { Box, Card, CardMedia, Typography } from "@mui/material";
+import { RecipeInfo } from "@typings/recipes";
+import StyledButton, { BUTTON_TYPES } from "../button/StyledButton";
+import { BriefInfoBox } from "./RecipeCard.styles";
 
 const RecipeCard = ({ recipe }: { recipe: RecipeInfo }) => {
   const navigate = useNavigate();

@@ -1,6 +1,5 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import * as reactRouter from "react-router-dom";
-import { MemoryRouter, useNavigate } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import RecipeCard from "./RecipeCard";
 import userEvent from "@testing-library/user-event";
 

@@ -1,45 +1,13 @@
 import dotenv from "dotenv";
 import axios from "axios";
 import recipesDB from "./recipes.mongo";
+import { ResRecipe, RecipeInfo, Instruction } from "@typings/recipes";
 
 dotenv.config();
 
 const SPOONACULAR_API_URL = `https://api.spoonacular.com/recipes/complexSearch?number=100&apiKey=${process.env.SPOONACULAR_API_KEY}&minCalories=0&instructionsRequired=true&addRecipeInformation=true&fillIngredients=true&includeNutrition=true`;
 
-type Nutrition = {
-  name: string;
-  amount: number;
-  unit: string;
-};
-
-type Instruction = { number: number; step: string };
-
-type ResRecipe = {
-  title: string;
-  sourceUrl: string;
-  image: string;
-  extendedIngredients: { nameClean: string }[];
-  analyzedInstructions: [{ steps: Instruction[] }];
-  nutrition: { nutrients: Nutrition[] };
-  readyInMinutes: number;
-  servings: number;
-  diets: string[];
-};
-
-type MealRecipe = {
-  recipeId: string;
-  title: string;
-  sourceUrl: string;
-  imageUrl: string;
-  ingredients: string[];
-  instructions: Instruction[];
-  calories: number;
-  readyInMinutes: number;
-  servings: number;
-  diets: string[];
-};
-
-const saveRecipe = async (recipe: MealRecipe) => {
+const saveRecipe = async (recipe: RecipeInfo) => {
   await recipesDB.findOneAndUpdate(
     {
       title: recipe.title,
@@ -136,6 +104,4 @@ export {
   getRecipeById,
   populateRecipes,
   loadRecipes,
-  ResRecipe,
-  MealRecipe,
 };

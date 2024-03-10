@@ -3,7 +3,7 @@ import useRecipes from "../../utils/hooks/useRecipes";
 import { Box, Grid } from "@mui/material";
 import Spinner from "../../components/spinner/Spinner";
 import CustomPagination from "../../components/pagination/CustomPagination";
-import { RecipeInfo } from "./RecipesPage.types";
+import { RecipeInfo } from "@typings/recipes";
 import RecipeCard from "../../components/recipe-card/RecipeCard";
 
 const RecipesPage = ({

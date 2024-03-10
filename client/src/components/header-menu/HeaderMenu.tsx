@@ -20,13 +20,17 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
 
   return (
     <>
-      <IconButton data-testid="header-menu-btn" size="medium" onClick={(e) => setAnchorEl(e.currentTarget)}>
+      <IconButton
+        data-testid="header-menu-btn"
+        size="medium"
+        onClick={(e) => setAnchorEl(e.currentTarget)}
+      >
         <MenuIcon sx={{ color: "black" }} />
       </IconButton>
       <Menu
         anchorEl={anchorEl}
         open={isMenuOpen}
-        sx={{ marginTop: "20px", display: {xs: "flex", md: "none"}  }}
+        sx={{ marginTop: "20px", display: { xs: "flex", md: "none" } }}
         onClose={closeMenu}
       >
         {HEADER_LINKS.map((headerLink) => {
@@ -39,7 +43,7 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
                 ".MuiTouchRipple-child": {
                   backgroundColor: "#4eecdc",
                 },
-                cursor: headerLink.link === "recipes" ? "pointer" : "default"
+                cursor: headerLink.link === "recipes" ? "pointer" : "default",
               }}
               onClick={() => {
                 handleOpenLink(headerLink.link);
@@ -47,7 +51,6 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
               }}
             >
               <HeaderLink
-                key={headerLink.link}
                 noWrap
                 variant="h6"
                 sx={{
@@ -62,6 +65,15 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
             </MenuItem>
           );
         })}
+        <MenuItem>
+          <HeaderLink
+            noWrap
+            variant="h6"
+            sx={{
+              fontWeight: 300,
+            }}
+          ></HeaderLink>
+        </MenuItem>
       </Menu>
     </>
   );

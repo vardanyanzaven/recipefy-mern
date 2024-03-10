@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Paper, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import { SignInData } from "@typings/auth";
 import Logo from "../logo/Logo";
 import StyledButton, { BUTTON_TYPES } from "../button/StyledButton";
 import { AuthContainer, StyledForm } from "./auth.styles";
 import useAuth from "../../utils/hooks/useAuth";
 import AuthInput from "../inputs/AuthInput";
-import { SignInData, signInSchema } from "../../utils/validation/auth.schema";
+import { signInSchema } from "../../utils/validation/auth.schema";
 import { SIGN_IN_INPUTS } from "../../constants";
 
 const SignInForm = () => {
@@ -50,9 +50,7 @@ const SignInForm = () => {
           <StyledButton
             style={{ margin: "40px 0" }}
             buttonType={BUTTON_TYPES.colored}
-            onClick={handleSubmit((data) => {
-              handleAuthSubmit(data, "signin");
-            })}
+            onClick={handleSubmit((data) => handleAuthSubmit(data, "signin"))}
           >
             Sign In
           </StyledButton>

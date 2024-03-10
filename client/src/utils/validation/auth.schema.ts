@@ -1,23 +1,7 @@
 import * as Yup from "yup";
+import { SignInData, SignUpData, ValidationData } from "@typings/auth";
 
-export type SignInData = {
-  email: string;
-  password: string;
-};
-
-export type ValidationData = {
-  isValid: boolean;
-  error?: string;
-};
-
-export type SignUpData = SignInData & {
-  username: string;
-  age: number;
-  calories: number;
-  diets: string[];
-};
-
-export type ValidationFn = (
+type ValidationFn = (
   formData: SignInData | SignUpData
 ) => Promise<ValidationData>;
 
@@ -39,7 +23,9 @@ const signUpSchema: Yup.ObjectSchema<SignUpData> = signInSchema.shape({
     .min(3, "Username must be at least 3 characters long")
     .max(25, "Username must be no longer than 25 characters"),
   age: Yup.number()
-  .transform((value, originalValue) => originalValue === '' ? undefined : value)
+    .transform((value, originalValue) =>
+      originalValue === "" ? undefined : value
+    )
     .required("Age is required")
     .typeError("Age must be a number")
     .min(16, "Age be higher than 16")

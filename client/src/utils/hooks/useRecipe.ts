@@ -1,19 +1,22 @@
 import { useCallback, useEffect, useState } from "react";
-import { RecipeInfo } from "../../pages/recipes/RecipesPage.types";
+import { RecipeInfo } from "@typings/recipes";
 
 const useRecipe = (recipeId: string) => {
-    const [values, setValues] = useState<{recipe: RecipeInfo, isLoading: boolean}>({recipe: {} as RecipeInfo, isLoading: true});
+  const [values, setValues] = useState<{
+    recipe: RecipeInfo;
+    isLoading: boolean;
+  }>({ recipe: {} as RecipeInfo, isLoading: true });
 
-    const getRecipe = useCallback(async () => {
-        const res = await fetch(`https://localhost:8000/api/recipes/${recipeId}`);
-        setValues({recipe: await res.json(), isLoading: false});
-    }, [recipeId]);
+  const getRecipe = useCallback(async () => {
+    const res = await fetch(`https://localhost:8000/api/recipes/${recipeId}`);
+    setValues({ recipe: await res.json(), isLoading: false });
+  }, [recipeId]);
 
-    useEffect(() => {
-        getRecipe();
-    }, [getRecipe]);
+  useEffect(() => {
+    getRecipe();
+  }, [getRecipe]);
 
-    return {recipe: values.recipe, isLoading: values.isLoading};
-}
+  return { recipe: values.recipe, isLoading: values.isLoading };
+};
 
 export default useRecipe;

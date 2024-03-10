@@ -1,5 +1,5 @@
 import { UseFormSetValue } from "react-hook-form";
-import { SignUpData } from "../validation/auth.schema";
+import { SignUpData } from "@typings/auth";
 
 const setDiets = (
   newValue: string[],

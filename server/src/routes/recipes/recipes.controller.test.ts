@@ -1,13 +1,10 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
-import mongoose from "mongoose";
 import request from "supertest";
 import { mongoConnect, mongoDisconnect } from "../../services/mongo";
 import {
-  getAllRecipes,
   populateRecipes,
 } from "../../models/recipes/recipes.model";
 import { mockFetchRecipes } from "../../../mockFunctions";
-import supertest from "supertest";
 import app from "../../app";
 
 jest.mock("axios", () => ({
@@ -40,7 +37,7 @@ describe("Recipes controller tests", () => {
   describe("httpGetRecipes tests", () => {
     it("successfully fetches recipes based on page number and returns status code 200", async () => {
       const res = await request(app)
-        .get("/recipes")
+        .get("/api/recipes")
         .query({ page: 1 })
         .expect("Content-Type", /json/)
         .expect(200);
@@ -48,11 +45,11 @@ describe("Recipes controller tests", () => {
       expect(res.body.at(-1)).toHaveProperty("recipeId", "mock-recipe-10");
     });
   });
-
-  describe("httGetRecipe tests", () => {
+  
+  describe("httpGetRecipe tests", () => {
     it("successfully fetches the recipe with id and returns a status code 200", async () => {
       const res = await request(app)
-        .get("/recipes/mock-recipe-5")
+        .get("/api/recipes/mock-recipe-5")
         .expect("Content-Type", /json/)
         .expect(200);
 

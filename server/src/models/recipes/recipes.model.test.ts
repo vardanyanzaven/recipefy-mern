@@ -1,5 +1,6 @@
-import { mongoConnect, mongoDisconnect } from "../../services/mongo";
 import { MongoMemoryServer } from "mongodb-memory-server";
+import { RecipeInfo } from "@typings/recipes";
+import { mongoConnect, mongoDisconnect } from "../../services/mongo";
 import recipesDB from "./recipes.mongo";
 import { mockFetchRecipes } from "../../../mockFunctions";
 import * as recipesModel from "./recipes.model";
@@ -40,7 +41,7 @@ describe("Recipe model tests", () => {
     await mongoServer.stop();
   });
 
-  const mockRecipe: recipesModel.MealRecipe = {
+  const mockRecipe: RecipeInfo = {
     recipeId: "recipe-id",
     title: "Mock Recipe",
     sourceUrl: "mock-url",

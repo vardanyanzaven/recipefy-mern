@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import { StyledLogo } from "./Logo.styles";
 import { Link } from "react-router-dom";
 

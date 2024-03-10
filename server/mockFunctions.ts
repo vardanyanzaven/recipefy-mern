@@ -1,4 +1,4 @@
-import { MealRecipe, ResRecipe } from "./src/models/recipes/recipes.model";
+import { RecipeInfo, ResRecipe } from "@typings/recipes";
 
 const mockRecipe: ResRecipe = {
   title: "Mock Recipe",
@@ -15,7 +15,7 @@ const mockRecipe: ResRecipe = {
 const mockFetchRecipes = () => {
   const recipesList = new Array(10)
     .fill({})
-    .map((recipe: MealRecipe, i: number) => ({
+    .map((recipe: RecipeInfo, i: number) => ({
       ...mockRecipe,
       title: `${mockRecipe.title} ${i + 1}`,
     }));

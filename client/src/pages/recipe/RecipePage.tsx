@@ -12,12 +12,17 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import CircleIcon from "@mui/icons-material/Circle";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
-import useRecipe from "../../utils/hooks/useRecipe";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
+import { Instruction } from "@typings/recipes";
+import useRecipe from "../../utils/hooks/useRecipe";
 import Spinner from "../../components/spinner/Spinner";
 import RecipeImageTitle from "../../components/recipe-title-card/RecipeImageTitle";
-import { AdditionalInfo, Instruction } from "./RecipePage.types";
 import RecipeFooter from "../../components/recipe-footer/RecipeFooter";
+
+type AdditionalInfo = {
+  name: string;
+  value: number;
+};
 
 const RecipePage = () => {
   const { recipeId } = useParams();
@@ -60,7 +65,7 @@ const RecipePage = () => {
               },
             }}
           >
-            {infoSections?.map((section, i) => {
+            {infoSections.map((section, i) => {
               return (
                 <Accordion
                   key={`section-${i}`}

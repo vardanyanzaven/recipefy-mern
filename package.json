@@ -4,13 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test-e2e": "NODE_ENV=test npm run deploy & npx cypress open",
     "test-server": "npm test --prefix server",
     "test-client": "npm test --prefix client -- --watchAll=false",
     "test": "npm run test-server && npm run test-client",
     "start": "npm run watch --prefix server & npm start --prefix client",
     "install-all": "npm install && npm install --prefix client && npm install --prefix server",
-    "deploy": "npm run build --prefix client && npm start --prefix server"
+    "deploy": "npm run build --prefix client && npm start --prefix server",
+    "deploy-prod": "npm run build --prefix server && npm run build --prefix client && npm run start-prod --prefix server"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.6.6",
+    "typescript": "^5.4.2"
+  }
 }

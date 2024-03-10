@@ -34,7 +34,7 @@ describe("Auth model tests", () => {
     it("throws an error if any of the fields are missing", async () => {
       let errorMsg = "";
       try {
-        await signUpUser({ ...mockUser, username: undefined });
+        await signUpUser({ ...mockUser, username: "" });
       } catch (err) {
         errorMsg = (err as Error).message;
       }

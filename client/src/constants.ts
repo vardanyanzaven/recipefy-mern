@@ -41,7 +41,7 @@ type SignUpConstants = {
   nutrition: {
     label: string;
     name: "age" | "calories" | "diets";
-    type: string;
+    type?: string;
     step?: number;
   }[];
 };
@@ -66,14 +66,10 @@ export const SIGN_UP_INPUTS: SignUpConstants = {
       label: "Daily number of meals",
       // Each option will have a fixed number of calories
       name: "calories",
-      // Type doesn't matter since it needs MUI's RadioGroup component
-      type: "radio",
     },
     {
       label: "Diets",
       name: "diets",
-      // Type doesn't matter since it needs MUI's Select component
-      type: "select",
     },
   ],
 };

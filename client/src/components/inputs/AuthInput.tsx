@@ -1,5 +1,5 @@
 import React, { FormHTMLAttributes } from "react";
-import { SignInData, SignUpData } from "../../utils/validation/auth.schema";
+import { SignInData, SignUpData } from "@typings/auth";
 import { StyledTextField } from "./AuthInput.styles";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { INPUT_LIMITS } from "../../constants";
@@ -16,7 +16,7 @@ type AuthInputProps = {
       | "age"
       | "calories"
       | "diets";
-    type: string;
+    type?: string;
     step?: number;
   };
   getCredError: (inputName: string) => string | undefined;
