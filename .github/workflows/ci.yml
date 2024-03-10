@@ -16,5 +16,5 @@ jobs:
         with:
           node-version: latest
       - run: npm run install-all
-      - run: npm test
+      - run: npm start && npm test
       - run: npm run test-e2e
