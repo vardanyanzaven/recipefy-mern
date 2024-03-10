@@ -1,0 +1,22 @@
+name: Recipefy CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      CI: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js latest version
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - run: npm run install-all
+      - run: npm run build --prefix client
