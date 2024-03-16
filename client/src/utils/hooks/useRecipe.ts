@@ -8,7 +8,7 @@ const useRecipe = (recipeId: string) => {
   }>({ recipe: {} as RecipeInfo, isLoading: true });
 
   const getRecipe = useCallback(async () => {
-    const res = await fetch(`https://localhost:8000/api/recipes/${recipeId}`);
+    const res = await fetch(`http://localhost:8000/api/recipes/${recipeId}`);
     setValues({ recipe: await res.json(), isLoading: false });
   }, [recipeId]);
 

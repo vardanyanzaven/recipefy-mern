@@ -1,17 +1,19 @@
-import { IconButton, Menu, MenuItem } from "@mui/material";
 import React, { useState } from "react";
+import { IconButton, Menu, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderLink } from "../header/Header.styles";
 import { HEADER_LINKS } from "../../constants";
+import { useAppSelector } from "src/redux/hooks.redux";
 
 const HeaderMenu = ({ activePage }: { activePage: string }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
   const isMenuOpen = Boolean(anchorEl);
   const navigate = useNavigate();
 
   const handleOpenLink = (link: string) => {
-    link === "recipes" && navigate(link);
+    (link === "recipes" || link === "signin") && navigate(link);
   };
 
   const closeMenu = () => {
@@ -65,15 +67,31 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
             </MenuItem>
           );
         })}
-        <MenuItem>
-          <HeaderLink
-            noWrap
-            variant="h6"
-            sx={{
-              fontWeight: 300,
+        {!isLoggedIn && (
+          <MenuItem
+            onClick={() => {
+              handleOpenLink("signin");
+              closeMenu();
             }}
-          ></HeaderLink>
-        </MenuItem>
+            sx={{
+              width: "100vw",
+              ".MuiTouchRipple-child": {
+                backgroundColor: "#4eecdc",
+              },
+              display: {xs: "block", sm: "none"}
+            }}
+          >
+            <HeaderLink
+              noWrap
+              variant="h6"
+              sx={{
+                fontWeight: 300,
+              }}
+            >
+              Sign In
+            </HeaderLink>
+          </MenuItem>
+        )}
       </Menu>
     </>
   );

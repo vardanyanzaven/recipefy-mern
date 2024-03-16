@@ -15,6 +15,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: latest
-      - run: npm run install-all
-      - run: npm start && npm test
-      - run: npm run test-e2e
+
+      - name: Install all poackages
+        run: npm run install-all
+
+      - name: Run unit and API tests
+        run: npm start && npm test
+
+      - name: Run E2E tests
+        run: npm run test-e2e
+
+# Sertifikatneri harcy luci(kareli a qnnarkel qeru het)

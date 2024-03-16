@@ -9,7 +9,7 @@ const useRecipes = (page?: number) => {
 
   const getRecipes = useCallback(async () => {
     setValues({ ...values, isLoading: true });
-    const res = await fetch(`https://localhost:8000/api/recipes?page=${page}`);
+    const res = await fetch(`http://localhost:8000/api/recipes?page=${page}`);
     setValues({ recipes: await res.json(), isLoading: false });
   }, [page]);
 
