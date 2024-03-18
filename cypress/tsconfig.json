@@ -7,5 +7,5 @@
       "@typings/*": ["../typings/*"]
     }
   },
-  "include": ["**/*.ts", "support/e2e.ts"]
+  "include": ["**/*.ts", "support/e2e.ts", "../cypress.config.ts"]
 }

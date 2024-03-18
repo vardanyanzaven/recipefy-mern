@@ -1,4 +1,25 @@
+before(() => {
+  cy.createCollection("recipes");
+});
+
 context("Recipes tests", () => {
+  before(() => {
+    cy.task("createRecipes").then((recipes) => {
+      cy.insertMany(recipes as Document[], { collection: "recipes" });
+      cy.intercept(
+        { method: "GET", url: "http://localhost:8000/api/recipes?page=1" },
+        {
+          status: 200,
+          body: recipes,
+        }
+      );
+    });
+  });
+
+  after(() => {
+    cy.deleteMany({}, { collection: "recipes" });
+  });
+
   it("successfully navigates to recipes page, renders 10 recipe cards and displays info on recipe page", () => {
     cy.visit("/");
 
@@ -17,6 +38,6 @@ context("Recipes tests", () => {
 
     // Opens the ingredients section and checks if the ingredients are rendered
     cy.contains(/ingredients/i).click();
-    cy.contains("dried cannellini beans").should("be.visible");
+    cy.contains("Ingr. 1").should("be.visible");
   });
 });

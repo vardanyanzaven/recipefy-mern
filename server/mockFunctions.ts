@@ -13,7 +13,7 @@ const mockRecipe: ResRecipe = {
 };
 
 const mockFetchRecipes = () => {
-  const recipesList = new Array(10)
+  const recipesList = new Array(15)
     .fill({})
     .map((recipe: RecipeInfo, i: number) => ({
       ...mockRecipe,

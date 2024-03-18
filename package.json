@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "run-e2e": "NODE_ENV=test npx cypress open",
     "test-e2e": "NODE_ENV=test npm run deploy & npx cypress run",
     "test-server": "npm test --prefix server",
     "test-client": "npm test --prefix client -- --watchAll=false",
@@ -17,6 +18,10 @@
   "license": "ISC",
   "devDependencies": {
     "cypress": "^13.6.6",
+    "cypress-mongodb": "^6.2.0",
     "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }

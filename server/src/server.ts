@@ -1,12 +1,12 @@
 import { createServer } from "http";
-import { readFileSync } from "fs";
 import dotenv from "dotenv";
 
 import app from "./app";
 import { mongoConnect } from "./services/mongo";
 import { loadRecipes } from "./models/recipes/recipes.model";
 
-dotenv.config();
+dotenv.config({path: "../.env"});
+dotenv.config({path: "../../.env"});
 
 const server = createServer(app);
 
