@@ -1,9 +1,8 @@
 import request from "supertest";
 import app from "../../app";
+import usersDB from "../../models/auth/auth.mongo";
 import { mongoConnect, mongoDisconnect } from "../../services/mongo";
 import { MongoMemoryServer } from "mongodb-memory-server";
-
-// TODO: Fix errors with Content-Type(expected json, but fetches charset=utf-8 instead)
 
 describe("Auth controller tests", () => {
   let mongoServer: MongoMemoryServer;
@@ -27,6 +26,10 @@ describe("Auth controller tests", () => {
   };
 
   describe("Sign Up tests", () => {
+    afterEach(async () => {
+      await usersDB.deleteMany();
+    });
+
     it("returns a status code 201, user info and sets the cookie", async () => {
       const res = await request(app)
         .post("/api/auth/signup")
@@ -54,6 +57,10 @@ describe("Auth controller tests", () => {
   });
 
   describe("Sign In tests", () => {
+    beforeAll(async () => {
+      await request(app).post("/api/auth/signup").send(mockCredentials);
+    });
+
     it("returns a status code 200, user info and sets the cookie", async () => {
       const res = await request(app)
         .post("/api/auth/signin")

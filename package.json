@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run-e2e": "NODE_ENV=test npx cypress open",
+    "run-e2e": "NODE_ENV=test npm start --prefix server & npx cypress open",
     "test-e2e": "NODE_ENV=test npm run deploy & npx cypress run",
     "test-server": "npm test --prefix server",
     "test-client": "npm test --prefix client -- --watchAll=false",
-    "test": "npm run test-server & npm run test-client",
     "start": "npm run watch --prefix server & npm start --prefix client",
     "install-all": "npm install && npm install --prefix client && npm install --prefix server",
     "deploy": "npm run build --prefix client && npm start --prefix server",

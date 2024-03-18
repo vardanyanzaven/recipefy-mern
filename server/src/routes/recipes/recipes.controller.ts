@@ -15,6 +15,7 @@ const httpGetRecipe = async (req: Request, res: Response) => {
   const { recipeId } = req.params;
 
   const recipe = await getRecipeById(recipeId);
+  console.log(recipe)
 
   return res.status(200).json(recipe).end();
 };
