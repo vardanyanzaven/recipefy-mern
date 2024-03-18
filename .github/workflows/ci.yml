@@ -9,6 +9,7 @@ jobs:
     env:
       MONGO_DB_URL: mongodb://localhost/recipefy
       MONGO_DB_TEST_URL: mongodb://localhost/test
+      JWT_SECRET: fakejwtsecret
     strategy:
       matrix:
         node-version: [20.x]
