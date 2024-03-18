@@ -16,6 +16,6 @@ server.listen(process.env.PORT as string, async () => {
       ? (process.env.MONGO_DB_TEST_URL as string)
       : (process.env.MONGO_DB_URL as string)
   );
-  await loadRecipes();
+  process.env.NODE_ENV !== "test" && await loadRecipes();
   console.log(`Server listening on port ${process.env.PORT}...`);
 });
