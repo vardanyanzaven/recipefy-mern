@@ -8,6 +8,7 @@ jobs:
   test:
     env:
       CI: false
+      PORT: 8000
       MONGO_DB_URL: mongodb://localhost/recipefy
       MONGO_DB_TEST_URL: mongodb://localhost/test
       JWT_SECRET: fakejwtsecret
@@ -41,6 +42,4 @@ jobs:
         run: npm run test-server
 
       - name: Run E2E tests
-        run: |
-            NODE_ENV=test npm run deploy
-            npx cypress run
+        run: npm run test-e2e
