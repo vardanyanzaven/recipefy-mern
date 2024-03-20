@@ -2,6 +2,10 @@ before(() => {
   cy.createCollection("recipes");
 });
 
+after(() => {
+  cy.dropCollection("recipes");
+})
+
 context("Recipes tests", () => {
   before(() => {
     cy.task("createRecipes").then((recipes) => {
@@ -14,10 +18,6 @@ context("Recipes tests", () => {
         }
       );
     });
-  });
-
-  after(() => {
-    cy.deleteMany({}, { collection: "recipes" });
   });
 
   it("successfully navigates to recipes page, renders 10 recipe cards and displays info on recipe page", () => {

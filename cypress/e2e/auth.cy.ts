@@ -9,15 +9,19 @@ const mockUser: Credentials = {
   diets: ["none"],
 };
 
-beforeEach(() => {
-  cy.visit("/");
-
-  cy.get("[data-testid=header").as("header");
-  cy.contains(/sign up/i).as("signUpBtn");
-  cy.contains(/sign in/i).as("signInBtn");
+after(() => {
+  cy.dropCollection("users");
 });
 
 context("Auth E2E tests", () => {
+  beforeEach(() => {
+    cy.visit("/");
+
+    cy.get("[data-testid=header").as("header");
+    cy.contains(/sign up/i).as("signUpBtn");
+    cy.contains(/sign in/i).as("signInBtn");
+  });
+  after(() => {});
   context("Sign Up tests", () => {
     beforeEach(() => {
       // Redirects to /signup
