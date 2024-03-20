@@ -1,13 +1,14 @@
 before(() => {
-  cy.createCollection("recipes");
+  cy.dropCollection("recipes");
 });
 
 after(() => {
   cy.dropCollection("recipes");
-})
+});
 
 context("Recipes tests", () => {
   before(() => {
+    cy.createCollection("recipes");
     cy.task("createRecipes").then((recipes) => {
       cy.insertMany(recipes as Document[], { collection: "recipes" });
       cy.intercept(
