@@ -1,6 +1,7 @@
 import { UserData } from "@typings/auth";
 import { SignInData, SignUpData } from "@typings/auth";
 import { validateSignIn, validateSignUp } from "../validation/auth.schema";
+import { BASE_API_URL } from "../../constants";
 
 const handleAuth = async (formFields: SignInData | SignUpData, url: string) => {
   const { isValid, error } = formFields.hasOwnProperty("username")
@@ -16,7 +17,7 @@ const handleAuth = async (formFields: SignInData | SignUpData, url: string) => {
   }
 
   // POST-s sign up data to the backend
-  const res = await fetch(`http://localhost:8000/api/auth/${url}`, {
+  const res = await fetch(`${BASE_API_URL}/auth/${url}`, {
     headers: {
       "Content-Type": "application/json",
     },

@@ -6,7 +6,7 @@
     "test": "jest",
     "test-watch": "jest --watch",
     "start": "npx ts-node src/server.ts",
-    "start-prod": "node dist/server/server.js",
+    "start-prod": "NODE_ENV=production node dist/server/server.js",
     "watch": "nodemon src/server.ts",
     "build": "tsc --project tsconfig.build.json"
   },
@@ -15,10 +15,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
     "@types/jest": "^29.5.11",
-    "@types/node": "^20.10.4",
     "@types/supertest": "^6.0.2",
     "mongodb-memory-server": "^9.1.6",
     "nodemon": "^3.0.2",
@@ -29,8 +26,11 @@
   "dependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/morgan": "^1.9.9",
+    "@types/node": "^20.11.30",
     "@types/validator": "^13.11.7",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",

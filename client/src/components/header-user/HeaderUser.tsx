@@ -3,12 +3,13 @@ import { useAppDispatch } from "../../redux/hooks.redux";
 import { logoutUser } from "../../redux/redux-slices/user.slice";
 import StyledButton from "../button/StyledButton";
 import { UserData } from "@typings/auth";
+import { BASE_API_URL } from "../../constants";
 
 const HeaderUser = ({ username, email }: UserData) => {
   const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
-    await fetch("http://localhost:8000/api/auth/logout", { method: "post" });
+    await fetch(`${BASE_API_URL}/auth/logout`, { method: "post" });
     dispatch(logoutUser());
   };
 

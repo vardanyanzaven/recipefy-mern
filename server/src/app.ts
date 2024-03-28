@@ -33,7 +33,7 @@ app.use(
     path.join(
       __dirname,
       "..",
-      process.env.NODE_ENV === "prod" ? ".." : "dist",
+      process.env.NODE_ENV === "production" ? "." : "dist",
       "public"
     )
   )
@@ -46,7 +46,7 @@ app.get("/*", (req: Request, res: Response) => {
     path.join(
       __dirname,
       "..",
-      process.env.NODE_ENV === "prod" ? ".." : "dist",
+      process.env.NODE_ENV === "production" ? "." : "dist",
       "public",
       "index.html"
     )

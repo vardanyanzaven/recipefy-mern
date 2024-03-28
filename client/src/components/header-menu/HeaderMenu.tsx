@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderLink } from "../header/Header.styles";
 import { HEADER_LINKS } from "../../constants";
-import { useAppSelector } from "src/redux/hooks.redux";
+import { useAppSelector } from "../../redux/hooks.redux";
 
 const HeaderMenu = ({ activePage }: { activePage: string }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);

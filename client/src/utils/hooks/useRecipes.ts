@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { RecipeInfo } from "@typings/recipes";
+import { BASE_API_URL } from "../../constants";
 
 const useRecipes = (page?: number) => {
   const [values, setValues] = useState<{
@@ -9,7 +10,7 @@ const useRecipes = (page?: number) => {
 
   const getRecipes = useCallback(async () => {
     setValues({ ...values, isLoading: true });
-    const res = await fetch(`http://localhost:8000/api/recipes?page=${page}`);
+    const res = await fetch(`${BASE_API_URL}/recipes?page=${page}`);
     setValues({ recipes: await res.json(), isLoading: false });
   }, [page]);
 

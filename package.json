@@ -11,7 +11,7 @@
     "start": "npm run watch --prefix server & npm start --prefix client",
     "install-all": "npm install && npm install --prefix client && npm install --prefix server",
     "deploy": "npm run build --prefix client && npm start --prefix server",
-    "deploy-prod": "npm run build --prefix server && npm run build --prefix client && npm run start-prod --prefix server"
+    "deploy-prod": "NODE_ENV=production npm run build --prefix server && npm run build --prefix client && npm run start-prod --prefix server"
   },
   "author": "",
   "license": "ISC",
