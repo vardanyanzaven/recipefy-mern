@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run-e2e": "NODE_ENV=test start-server-and-test 'npm start --prefix server' http://localhost:8000 'npx cypress open'",
-    "test-e2e": "NODE_ENV=test start-server-and-test deploy http://localhost:8000 'npx cypress run'",
+    "test-e2e": "npm run deploy & npx wait-on https://localhost:8000 && npx cypress open",
+    "run-e2e": "npm run deploy & npx wait-on https://localhost:8000 && npx cypress run",
     "test-server": "npm test --prefix server",
     "test-client": "npm test --prefix client -- --watchAll=false",
     "start": "npm run watch --prefix server & npm start --prefix client",
@@ -18,10 +18,10 @@
   "devDependencies": {
     "cypress": "^13.6.6",
     "cypress-mongodb": "^6.2.0",
-    "start-server-and-test": "^2.0.3",
     "typescript": "^5.4.2"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "wait-on": "^7.2.0"
   }
 }

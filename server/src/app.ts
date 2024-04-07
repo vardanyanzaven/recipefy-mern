@@ -13,9 +13,11 @@ const corsOptions: CorsOptions = {
 };
 
 app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      imgSrc: ["null", "*"],
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        imgSrc: ["null", "*"],
+      },
     },
   })
 );

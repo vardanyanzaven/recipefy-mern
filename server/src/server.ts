@@ -1,14 +1,19 @@
-import { createServer } from "http";
+import { createServer } from "https";
+import fs from "fs";
 import dotenv from "dotenv";
 
 import app from "./app";
 import { mongoConnect } from "./services/mongo";
 import { loadRecipes } from "./models/recipes/recipes.model";
+import path from "path";
 
 dotenv.config({path: "../.env"});
-dotenv.config({path: "../../.env"});
+dotenv.config({path: "../../.env"}); 
 
-const server = createServer(app);
+const server = createServer({
+  key: fs.readFileSync(path.join(__dirname, process.env.NODE_ENV === "production" ? ".." : ".", "..", "..", "certs", "key.pem")),
+  cert: fs.readFileSync(path.join(__dirname, process.env.NODE_ENV === "production" ? ".." : ".", "..", "..", "certs", "cert.pem"))
+}, app);
 
 server.listen(process.env.PORT as string, async () => {
   await mongoConnect(

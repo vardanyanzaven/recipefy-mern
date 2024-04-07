@@ -19,6 +19,6 @@ export default defineConfig({
       });
       configurePlugin(on);
     },
-    baseUrl: "http://localhost:8000",
+    baseUrl: "https://localhost:8000",
   },
 });

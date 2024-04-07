@@ -12,7 +12,7 @@ context("Recipes tests", () => {
     cy.task("createRecipes").then((recipes) => {
       cy.insertMany(recipes as Document[], { collection: "recipes" });
       cy.intercept(
-        { method: "GET", url: "http://localhost:8000/api/recipes?page=1" },
+        { method: "GET", url: "https://localhost:8000/api/recipes?page=1" },
         {
           status: 200,
           body: recipes,

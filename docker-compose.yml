@@ -4,8 +4,12 @@ services:
   recipefy:
     container_name: recipefy
     image: vardanyanzaven/recipefy-mern:v1
+    platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - ./certs:/app/certs
     ports:
       - '8000:8000'
+    
