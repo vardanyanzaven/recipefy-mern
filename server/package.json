@@ -5,9 +5,6 @@
   "scripts": {
     "test": "jest",
     "test-watch": "jest --watch",
-    "start": "npx ts-node src/server.ts",
-    "start-prod": "NODE_ENV=production node dist/server/server.js",
-    "watch": "nodemon src/server.ts",
     "build": "tsc --project tsconfig.build.json"
   },
   "keywords": [],
@@ -18,10 +15,8 @@
     "@types/jest": "^29.5.11",
     "@types/supertest": "^6.0.2",
     "mongodb-memory-server": "^9.1.6",
-    "nodemon": "^3.0.2",
     "supertest": "^6.3.4",
-    "ts-jest": "^29.1.2",
-    "ts-node": "^10.9.2"
+    "ts-jest": "^29.1.2"
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.2",

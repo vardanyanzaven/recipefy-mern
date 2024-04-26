@@ -6,8 +6,6 @@ RUN npm install -g typescript
 
 FROM node:lts-alpine
 
-ENV NODE_ENV=production
-
 WORKDIR /app
 
 RUN npm install -g typescript
@@ -29,7 +27,7 @@ RUN npm run build --prefix client
 COPY server/ server/
 RUN npm run build --prefix server
 
-CMD [ "npm", "run", "start-prod", "--prefix", "server" ]
+CMD [ "npm", "run", "start-server-dist" ]
 
 USER node
 

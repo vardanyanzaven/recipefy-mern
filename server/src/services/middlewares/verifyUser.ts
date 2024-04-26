@@ -15,7 +15,10 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
 
   let decoded;
   try {
-    decoded = jwt.verify(authToken, process.env.JWT_SECRET as Secret) as JwtPayload;
+    decoded = jwt.verify(
+      authToken,
+      process.env.JWT_SECRET as Secret
+    ) as JwtPayload;
   } catch (err) {
     return res.status(401).json({ error: "Invalid token" });
   }

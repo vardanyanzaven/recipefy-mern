@@ -7,8 +7,7 @@ import { mongoConnect } from "./services/mongo";
 import { loadRecipes } from "./models/recipes/recipes.model";
 import path from "path";
 
-dotenv.config({path: "../.env"});
-dotenv.config({path: "../../.env"}); 
+dotenv.config();
 
 const server = createServer({
   key: fs.readFileSync(path.join(__dirname, process.env.NODE_ENV === "production" ? ".." : ".", "..", "..", "certs", "key.pem")),

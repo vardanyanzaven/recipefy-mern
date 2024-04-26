@@ -4,20 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test-e2e": "npm run deploy & npx wait-on https://localhost:8000 && npx cypress open",
-    "run-e2e": "npm run deploy & npx wait-on https://localhost:8000 && npx cypress run",
-    "test-server": "npm test --prefix server",
-    "test-client": "npm test --prefix client -- --watchAll=false",
-    "start": "npm run watch --prefix server & npm start --prefix client",
+    "test-e2e": "NODE_ENV=test BROWSER=none npm run start-test & npx wait-on https://localhost:8000 && npx cypress open",
+    "run-e2e": "NODE_ENV=test BROWSER=none npm run start-test & npx wait-on https://localhost:8000 && npx cypress run",
+    "start": "npm run start-server & npm start --prefix client",
+    "start-test": "npm run build --prefix client && npm run start-server",
+    "start-watch": "npm run watch-server & npm start --prefix client",
+    "watch-server": "nodemon server/src/server.ts",
+    "start-server": "npx ts-node server/src/server.ts",
+    "start-server-dist": "node server/dist/server/server.js",
     "install-all": "npm install && npm install --prefix client && npm install --prefix server",
-    "deploy": "npm run build --prefix client && npm start --prefix server",
-    "deploy-prod": "NODE_ENV=production npm run build --prefix server && npm run build --prefix client && npm run start-prod --prefix server"
+    "deploy": "NODE_ENV=production npm run build --prefix server && npm run build --prefix client && npm run start-server-dist"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^13.6.6",
     "cypress-mongodb": "^6.2.0",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.2"
   },
   "dependencies": {

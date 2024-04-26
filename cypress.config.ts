@@ -20,5 +20,6 @@ export default defineConfig({
       configurePlugin(on);
     },
     baseUrl: "https://localhost:8000",
+    experimentalStudio: true
   },
 });

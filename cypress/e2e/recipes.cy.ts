@@ -2,9 +2,9 @@ before(() => {
   cy.dropCollection("recipes");
 });
 
-after(() => {
-  cy.dropCollection("recipes");
-});
+// after(() => {
+//   cy.dropCollection("recipes");
+// });
 
 context("Recipes tests", () => {
   before(() => {
@@ -30,6 +30,8 @@ context("Recipes tests", () => {
     cy.get("[data-testid=recipe-card]")
       .as("recipeCards")
       .should("have.length", 10);
+
+    console.log(cy.findOne({recipeId: "recipe-id-1"}, {collection: "recipes"}));
 
     // Navigates to recipe page
     cy.get("@recipeCards").first().find("[data-testid=view-more-btn]").click();
