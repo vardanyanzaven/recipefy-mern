@@ -59,13 +59,14 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker image build -t vardanyanzaven/recipefy-mern:v1 --platform linux/amd64 . && docker push vardanyanzaven/recipefy-mern:v1
+        run: make build && docker push vardanyanzaven/recipefy-mern:v1
 
       - name: Deploy changes to AWS
         run: |
            ls
            ssh -o StrictHostKeyChecking=no -i recipefy-key-pair.pem ec2-user@ec2-13-53-200-29.eu-north-1.compute.amazonaws.com '
            cd recipefy-mern
-           git pull
+           git fetch origin
+           git reset --hard origin/main
            bash ./bash.sh "MONGO_DB_URL=${{ secrets.MONGO_DB_URL }}" "MONGO_DB_TEST_URL=${{ secrets.MONGO_DB_TEST_URL }}" "JWT_SECRET=${{ secrets.JWT_SECRET }}" "SPOONACULAR_API_KEY=${{ secrets.SPOONACULAR_API_KEY }}"
            '

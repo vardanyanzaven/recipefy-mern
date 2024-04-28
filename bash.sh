@@ -10,7 +10,7 @@ echo "$MONGO_DB_TEST_URL" >> .env
 echo "$JWT_SECRET" >> .env
 echo "$SPOONACULAR_API_KEY" >> .env
 echo "PORT=8000" >> .env
-docker system prune
+docker system prune -f
 docker pull vardanyanzaven/recipefy-mern:v1
 make stop
 make start
