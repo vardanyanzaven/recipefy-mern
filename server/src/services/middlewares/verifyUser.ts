@@ -13,9 +13,9 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
     return res.status(401).json({ error: "User not authenticated" });
   }
 
-  let decoded;
+  let decodedID;
   try {
-    decoded = jwt.verify(
+    decodedID = jwt.verify(
       authToken,
       process.env.JWT_SECRET as Secret
     ) as JwtPayload;
@@ -23,7 +23,7 @@ const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
     return res.status(401).json({ error: "Invalid token" });
   }
 
-  const user = await usersDB.findOne(decoded.username);
+  const user = await usersDB.findById(decodedID);
 
   if (!user) return res.status(401).json({ error: "User not authenticated" });
 
