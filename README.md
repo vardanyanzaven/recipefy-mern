@@ -15,7 +15,10 @@ Recipefy is a MERN Application where users can view and find information about a
 Follow these steps to set up the project locally:
 
 1. Clone the repository;
-2. Generate key.pem and cert.pem files using the following command: `openssl req -x509 -newkey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 365`;
+2. Clone the [**recipefy-certs**](https://github.com/vardanyanzaven/recipefy-certs) repository by following the repository's instructions;
+> [!NOTE]
+> You'll be able to clone the **recipefy-certs** repository only after being granted access
+
 3. Move the key and cert files into a **certs** folder within the root directory;
 4. Run `npm run install-all`;
 5. Create a .env file in the **root** directory and add the [root variables](https://send.bitwarden.com/#ZDz20L-wGkGRurFsAVJgTQ/MfyQ9RimcaudSxON5er2_A);
