@@ -1,10 +1,8 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import request from "supertest";
 import { mongoConnect, mongoDisconnect } from "../../services/mongo";
-import {
-  populateRecipes,
-} from "../../models/recipes/recipes.model";
-import { mockFetchRecipes } from "../../../mockFunctions";
+import { populateRecipes } from "../../models/recipes/recipes.model";
+import { mockFetchRecipes } from "../../../test-utils/mockFunctions";
 import app from "../../app";
 
 jest.mock("axios", () => ({
@@ -23,6 +21,8 @@ jest.mock("axios", () => ({
 
 describe("Recipes controller tests", () => {
   let mongoServer: MongoMemoryServer;
+  const baseUrl = "/api/recipes";
+
   beforeAll(async () => {
     mongoServer = await MongoMemoryServer.create();
     await mongoConnect(mongoServer.getUri());
@@ -34,10 +34,12 @@ describe("Recipes controller tests", () => {
     await mongoServer.stop();
   });
 
-  describe("httpGetRecipes tests", () => {
+  const agent = request.agent(app);
+
+  describe("httpGetAllRecipes tests", () => {
     it("successfully fetches recipes based on page number and returns status code 200", async () => {
-      const res = await request(app)
-        .get("/api/recipes")
+      const res = await agent
+        .get(baseUrl)
         .query({ page: 1 })
         .expect("Content-Type", /json/)
         .expect(200);
@@ -45,15 +47,16 @@ describe("Recipes controller tests", () => {
       expect(res.body.at(-1)).toHaveProperty("recipeId", "mock-recipe-10");
     });
   });
-  
+
   describe("httpGetRecipe tests", () => {
     it("successfully fetches the recipe with id and returns a status code 200", async () => {
-      const res = await request(app)
-        .get("/api/recipes/mock-recipe-5")
+      const res = await agent
+        .get(`${baseUrl}/mock-recipe-5`)
         .expect("Content-Type", /json/)
         .expect(200);
 
-      expect(res.body).toHaveProperty("recipeId", "mock-recipe-5");
+      // 0 needs to be selected because the recipe is stored in an object with a key of 0
+      expect(res.body[0]).toHaveProperty("recipeId", "mock-recipe-5");
     });
   });
 });

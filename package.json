@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "module": "esnext",
   "scripts": {
-    "test-e2e": "NODE_ENV=test BROWSER=none npm run start-test & npx wait-on https://localhost:8000 && npx cypress open",
-    "run-e2e": "NODE_ENV=test BROWSER=none npm run start-test & npx wait-on https://localhost:8000 && npx cypress run",
-    "start": "npm run start-server & npm start --prefix client",
-    "start-test": "npm run build --prefix client && npm run start-server",
-    "start-watch": "npm run watch-server & npm start --prefix client",
+    "test-e2e": "NODE_ENV=test BROWSER=none npm run start & npx wait-on https://localhost:8000 && npx cypress open && lsof -t -i:8000 | xargs kill",
+    "run-e2e": "NODE_ENV=test BROWSER=none npm run start & npx wait-on https://localhost:8000 && npx cypress run && lsof -t -i:8000 | xargs kill",
+    "start": "npm run build --prefix client && npm run start-server",
+    "start-watch": "npm run build --prefix client && npm run watch-server",
     "watch-server": "nodemon server/src/server.ts",
     "start-server": "npx ts-node server/src/server.ts",
     "start-server-dist": "node server/dist/server/server.js",
@@ -18,8 +18,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^13.6.6",
+    "cypress": "^13.13.1",
     "cypress-mongodb": "^6.2.0",
+    "mongodb-memory-server": "^10.0.0",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.2"

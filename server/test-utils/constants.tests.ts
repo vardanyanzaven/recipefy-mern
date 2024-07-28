@@ -1,0 +1,8 @@
+export const mockCredentials = {
+  username: "mockuser",
+  email: "mock@gmail.com",
+  password: "MockPass1$",
+  age: 44,
+  calories: 700,
+  diets: ["none"],
+};

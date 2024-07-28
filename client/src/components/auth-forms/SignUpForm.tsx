@@ -142,7 +142,7 @@ const SignUpForm = () => {
                       defaultValue={["none"]}
                       render={({ field }) => (
                         <Select
-                        data-testid="diets-input"
+                          data-testid="diets-input"
                           multiple
                           defaultValue={["none"]}
                           {...field}

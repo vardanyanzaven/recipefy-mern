@@ -10,8 +10,9 @@ export const HEADER_LINKS = [
     link: "about",
   },
   {
-    name: "Library",
-    link: "library",
+    name: "Saved",
+    link: "saved",
+    verification: true,
   },
 ];
 

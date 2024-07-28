@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks.redux";
 import { logoutUser } from "../../redux/redux-slices/user.slice";
 import StyledButton from "../button/StyledButton";
 import { UserData } from "@typings/auth";
 import { BASE_API_URL } from "../../constants";
 
-const HeaderUser = ({ username, email }: UserData) => {
+const HeaderUser = ({ username }: Pick<UserData, "username" | "email">) => {
   const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
@@ -21,7 +22,11 @@ const HeaderUser = ({ username, email }: UserData) => {
       >
         {username}
       </p>
-      <StyledButton onClick={handleLogout}>Log out</StyledButton>
+      <StyledButton onClick={handleLogout}>
+        <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+          Log out
+        </Link>
+      </StyledButton>
     </div>
   );
 };

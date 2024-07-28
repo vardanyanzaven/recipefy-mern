@@ -2,15 +2,15 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import { RecipeInfo } from "@typings/recipes";
 import { mongoConnect, mongoDisconnect } from "../../services/mongo";
 import recipesDB from "./recipes.mongo";
-import { mockFetchRecipes } from "../../../mockFunctions";
+import { mockFetchRecipes } from "../../../test-utils/mockFunctions";
 import * as recipesModel from "./recipes.model";
 
 const {
   getAllRecipes,
-  getRecipeById,
+  getRecipesByIds,
   loadRecipes,
   populateRecipes,
-  saveRecipe,
+  addRecipe,
 } = recipesModel;
 
 jest.mock("axios", () => ({
@@ -54,14 +54,15 @@ describe("Recipe model tests", () => {
     diets: [],
   };
 
-  describe("getAllRecipes, getRecipesById and saveRecipes tests", () => {
-    it("doesn't fetch more than 10 recipes", async () => {
+  describe("getAllRecipes, getRecipesByIds and saveRecipes tests", () => {
+    it("doesn't fetch more than 10 recipes, saves recipes and successfully fetches recipes by id", async () => {
       const recipes = await getAllRecipes(1);
       expect(recipes).toHaveLength(10);
 
-      await saveRecipe(mockRecipe);
+      await addRecipe(mockRecipe);
 
-      const recipeById = await getRecipeById(mockRecipe.recipeId);
+      const recipeById = await getRecipesByIds([mockRecipe.recipeId]);
+
       expect(recipeById).toBeDefined();
     });
   });
@@ -70,7 +71,7 @@ describe("Recipe model tests", () => {
     const consoleLogSpy = jest.spyOn(console, "log");
 
     it("doesn't load recipes if recipes are already loaded", async () => {
-      await saveRecipe({
+      await addRecipe({
         ...mockRecipe,
         title: "Cannellini Bean and Asparagus Salad with Mushrooms",
         recipeId: "cannelini",

@@ -7,7 +7,7 @@ dotenv.config();
 
 const SPOONACULAR_API_URL = `https://api.spoonacular.com/recipes/complexSearch?number=100&apiKey=${process.env.SPOONACULAR_API_KEY}&minCalories=0&instructionsRequired=true&addRecipeInformation=true&fillIngredients=true&includeNutrition=true`;
 
-const saveRecipe = async (recipe: RecipeInfo) => {
+const addRecipe = async (recipe: RecipeInfo) => {
   await recipesDB.findOneAndUpdate(
     {
       title: recipe.title,
@@ -23,8 +23,8 @@ const getAllRecipes = async (page: number) =>
     .skip((page - 1) * 10)
     .limit(10);
 
-const getRecipeById = async (recipeId: string) =>
-  await recipesDB.findOne({ recipeId }, { _id: 0, __v: 0 });
+const getRecipesByIds = async (recipeIds: string[]) =>
+  await recipesDB.find({ recipeId: { $in: recipeIds } }, { _id: 0, __v: 0 });
 
 const populateRecipes = async () => {
   const res = await axios.get(SPOONACULAR_API_URL);
@@ -83,7 +83,7 @@ const populateRecipes = async () => {
       diets,
     };
 
-    await saveRecipe(recipe);
+    await addRecipe(recipe);
   }
 
   await getAllRecipes(1);
@@ -99,9 +99,9 @@ const loadRecipes = async () => {
 };
 
 export {
-  saveRecipe,
+  addRecipe,
   getAllRecipes,
-  getRecipeById,
+  getRecipesByIds,
   populateRecipes,
   loadRecipes,
 };

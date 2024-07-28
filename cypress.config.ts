@@ -1,5 +1,6 @@
 import { defineConfig } from "cypress";
 import { configurePlugin } from "cypress-mongodb";
+import {MongoMemoryServer} from "mongodb-memory-server";
 import createRecipes from "./cypress/plugins/createRecipes";
 import * as dotenv from "dotenv";
 

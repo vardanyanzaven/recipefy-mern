@@ -14,7 +14,7 @@ describe("Tests for MongoDB connection", () => {
   afterAll(async () => {
     await mongoServer.stop();
   });
-  it("successfully connects and disconnect from MongoDB", async () => {
+  it("successfully connects and disconnects from MongoDB", async () => {
     await mongoConnect(mongoServer.getUri());
     expect(mongoose.connection.readyState).toBe(1);
 

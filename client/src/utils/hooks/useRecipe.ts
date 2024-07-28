@@ -10,7 +10,10 @@ const useRecipe = (recipeId: string) => {
 
   const getRecipe = useCallback(async () => {
     const res = await fetch(`${BASE_API_URL}/recipes/${recipeId}`);
-    setValues({ recipe: await res.json(), isLoading: false });
+    const recipe = await res.json();
+
+    // 0 needs to be selected because the recipe is stored in an object with a key of 0
+    setValues({ recipe: recipe[0], isLoading: false });
   }, [recipeId]);
 
   useEffect(() => {

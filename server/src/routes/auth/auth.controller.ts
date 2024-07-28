@@ -2,10 +2,15 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { Types } from "mongoose";
 import { SignInData, SignUpData } from "@typings/auth";
-import { signInUser, signUpUser, deleteUser } from "../../models/auth/auth.model";
+import usersDB from "../../models/user/user.mongo";
+import {
+  signInUser,
+  signUpUser,
+  deleteUser,
+} from "../../models/auth/auth.model";
 
-const createToken = (id: Types.ObjectId) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET as string, {
+const createToken = (userId: Types.ObjectId) => {
+  return jwt.sign({ userId }, process.env.JWT_SECRET as string, {
     expiresIn: "3d",
   });
 };
@@ -23,7 +28,15 @@ const httpSignUpUser = async (req: Request, res: Response) => {
     res.cookie("auth-token", token, {
       httpOnly: false,
     });
-    return res.status(201).json({ username: user.username, email: user.email }).end();
+
+    // Returns the new user info without the password field
+    const userInfo = await usersDB.findById(user._id, {
+      password: 0,
+      _id: 0,
+      __v: 0,
+    });
+
+    return res.status(201).json(userInfo).end();
   } catch (err) {
     console.log((err as Error).message);
     return res.status(400).json({ credentialErr: (err as Error).message });
@@ -44,7 +57,14 @@ const httpSignInUser = async (req: Request, res: Response) => {
       httpOnly: false,
     });
 
-    return res.status(200).json({ username: user.username, email: user.email }).end();
+    // Returns the user info without the password field
+    const userInfo = await usersDB.findById(user._id, {
+      password: 0,
+      _id: 0,
+      __v: 0,
+    });
+
+    return res.status(200).json(userInfo).end();
   } catch (err) {
     return res.status(400).json({ credentialErr: (err as Error).message });
   }
@@ -62,9 +82,10 @@ const httpLogoutUser = async (req: Request, res: Response) => {
 const httpDeleteUser = async (req: Request, res: Response) => {
   const username = req.params.username;
   try {
+    res.clearCookie("auth-token");
     await deleteUser(username);
     return res.status(200).end();
-  } catch(err) {
+  } catch (err) {
     return res.status(400).json({ error: (err as Error).message });
   }
 };

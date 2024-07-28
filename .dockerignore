@@ -4,4 +4,10 @@
 
 certs/
 
+client/src/**/*.test.tsx
+
 server/dist
+server/coverage
+server/test-utils
+server/src/**/*.test.ts
+server/jest.config.js

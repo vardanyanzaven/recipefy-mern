@@ -9,13 +9,7 @@ const { min: ageMin, max: ageMax } = INPUT_LIMITS.age;
 type AuthInputProps = {
   input: {
     label: string;
-    name:
-      | "username"
-      | "email"
-      | "password"
-      | "age"
-      | "calories"
-      | "diets";
+    name: "username" | "email" | "password" | "age" | "calories" | "diets";
     type?: string;
     step?: number;
   };
@@ -30,7 +24,6 @@ const AuthInput = ({
   errors,
   register,
 }: AuthInputProps) => {
-
   return (
     <StyledTextField
       {...register(input.name)}

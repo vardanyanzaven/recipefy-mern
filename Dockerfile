@@ -4,12 +4,6 @@ WORKDIR /app
 
 RUN npm install -g typescript
 
-FROM node:lts-alpine
-
-WORKDIR /app
-
-RUN npm install -g typescript
-
 COPY package*.json ./
 RUN npm install --omit=dev
 

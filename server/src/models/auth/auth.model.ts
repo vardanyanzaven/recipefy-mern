@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import usersDB from "./auth.mongo";
+import usersDB from "../user/user.mongo";
 import { SignInData, SignUpData } from "@typings/auth";
 import validator from "validator";
 
@@ -84,10 +84,22 @@ const signInUser = async ({ email, password }: SignInData) => {
   return user;
 };
 
-const deleteUser = async (username: string) => {
-  await usersDB.deleteOne({username});
+const deleteUser = async (username: string) =>
+  await usersDB.deleteOne({ username });
 
-  return {};
+const saveRecipe = async (userId: string, recipeId: string) => {
+  try {
+    // Finds the user by ID, saves the recipe ID and returns the updated array
+    const savedRecipes = await usersDB.findByIdAndUpdate(
+      userId,
+      { $push: { savedRecipes: recipeId } },
+      { new: true, fields: { savedRecipes: 1 } }
+    );
+
+    return savedRecipes;
+  } catch (err) {
+    throw new Error("An error occured when saving the recipe");
+  }
 };
 
-export { signUpUser, signInUser, deleteUser };
+export { signUpUser, signInUser, deleteUser, saveRecipe };

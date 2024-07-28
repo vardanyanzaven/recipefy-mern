@@ -9,7 +9,7 @@ import apiRouter from "./routes/apiRouters";
 const app = express();
 
 const corsOptions: CorsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://localhost:3000",
 };
 
 app.use(

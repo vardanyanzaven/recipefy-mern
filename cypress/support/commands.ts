@@ -1,4 +1,4 @@
-import { Credentials, SignInData, SignUpData } from "@typings/auth";
+import { SignInData, SignUpData } from "@typings/auth";
 
 declare global {
   namespace Cypress {
@@ -23,7 +23,7 @@ declare global {
 }
 
 Cypress.Commands.add("fillSignUp", (userInfo: SignUpData) => {
-  cy.get("#username-input").should("be.visible").type(userInfo.username);
+  cy.get("#username-input").type(userInfo.username);
 
   cy.get("#email-input").type(userInfo.email);
 

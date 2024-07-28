@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  AppBar,
-  Box,
-  Container,
-  Toolbar,
-} from "@mui/material";
+import { AppBar, Box, Container, Toolbar } from "@mui/material";
 import { HeaderCont, HeaderLink } from "./Header.styles";
 import AuthBtns from "../header-auth-btns/AuthBtns";
 import HeaderUser from "../header-user/HeaderUser";
@@ -13,6 +8,8 @@ import { useAppSelector } from "../../redux/hooks.redux";
 import { HEADER_LINKS } from "../../constants";
 import Logo from "../logo/Logo";
 import HeaderMenu from "../header-menu/HeaderMenu";
+import verifyUser from "../../utils/helpers/verifyUser";
+import useSnackbar from "../snackbar/Snackbar";
 
 const Header = ({
   activePage,
@@ -21,11 +18,23 @@ const Header = ({
   activePage: string;
   setActivePage: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const { isLoggedIn, username, email } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
+  const { CustomSnackbar, handleOpen } = useSnackbar();
+  const { isLoggedIn, username, email } = useAppSelector((state) => state.user);
 
-  const handleOpenLink = (link: string) => {
-    link === "recipes" && navigate(link);
+  const handleOpenLink = async (
+    verification: boolean | undefined,
+    link: string
+  ) => {
+    if (verification) {
+      const isVerified = await verifyUser();
+      if (!isVerified) {
+        handleOpen("Sign in to view saved recipes!");
+        return;
+      }
+    }
+
+    link !== "about" && navigate(link);
   };
 
   useEffect(() => {
@@ -33,7 +42,12 @@ const Header = ({
   }, [setActivePage]);
 
   return (
-      <AppBar data-testid="header" position="fixed" sx={{ background: "#d0fdfd"}}>
+    <>
+      <AppBar
+        data-testid="header"
+        position="fixed"
+        sx={{ background: "#d0fdfd" }}
+      >
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
@@ -63,7 +77,7 @@ const Header = ({
             <HeaderCont
               sx={{ display: { xs: "none", sm: "flex", md: "none" } }}
             >
-              <HeaderMenu activePage={activePage} />
+              <HeaderMenu activePage={activePage} handleOpen={handleOpen}/>
             </HeaderCont>
             <HeaderCont
               sx={{
@@ -82,8 +96,13 @@ const Header = ({
                     }}
                     className={`${
                       activePage === headerLink.link && "active-page-link"
-                    } ${headerLink.link !== "recipes" && "disabled"}`}
-                    onClick={() => handleOpenLink(headerLink.link)}
+                    } ${headerLink.link === "about" && "disabled"}`}
+                    onClick={async () =>
+                      await handleOpenLink(
+                        headerLink.verification,
+                        headerLink.link
+                      )
+                    }
                   >
                     {headerLink.name}
                   </HeaderLink>
@@ -111,7 +130,7 @@ const Header = ({
                 },
               }}
             >
-              <HeaderMenu activePage={activePage} />
+              <HeaderMenu activePage={activePage} handleOpen={handleOpen} />
             </HeaderCont>
             <HeaderCont
               sx={{
@@ -129,6 +148,8 @@ const Header = ({
           </Toolbar>
         </Container>
       </AppBar>
+      <CustomSnackbar />
+    </>
   );
 };
 

@@ -2,6 +2,10 @@ export type UserState = {
     isLoggedIn: boolean,
     username: string,
     email: string,
+    age: number | null;
+    calories: number | null;
+    diets: string[];
+    savedRecipes: string[];
 };
 
 export type UserData = Omit<UserState, "isLoggedIn">;

@@ -10,7 +10,7 @@ const setDiets = (
     setValue(
       "diets",
       newValue.filter((item) => item !== "none")
-      );
+    );
   }
 
   // If "none" is selected when there are selected intolerances, set intolerances to "none"

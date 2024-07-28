@@ -1,7 +1,9 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import RecipeCard from "./RecipeCard";
 import userEvent from "@testing-library/user-event";
+import { renderWithProviders } from "src/utils/tests/test.utils";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -23,10 +25,8 @@ const mockRecipe = {
 
 describe("RecipeCard tests", () => {
   it("displays all of the required information", async () => {
-    render(
-      <MemoryRouter initialEntries={["/recipes"]}>
+    renderWithProviders(
         <RecipeCard recipe={mockRecipe} />
-      </MemoryRouter>
     );
 
     const ingredientsInfo = screen.getByTestId("Ingredients");
@@ -37,7 +37,5 @@ describe("RecipeCard tests", () => {
     expect(prepTimeInfo.innerHTML).toBe("Prep time: 45m");
     const servingsInfo = screen.getByTestId("Servings");
     expect(servingsInfo.innerHTML).toBe("Servings: 3");
-    const viewMoreBtn = screen.getByTestId("view-more-btn");
-    userEvent.click(viewMoreBtn);
   });
 });

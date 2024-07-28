@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "module": "commonjs",
     "lib": ["es5", "dom"],
     "types": ["cypress", "node"],
     "paths": {
-      "@typings/*": ["../typings/*"]
+      "@typings/*": ["../typings/*"],
     }
   },
-  "include": ["**/*.ts", "support/e2e.ts", "../cypress.config.ts"]
+  "include": ["**/*.ts", "support/e2e.ts", "../cypress.config.ts", "mongoServer.ts"]
 }

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material";
+import RecipesPage from "./pages/recipes/RecipesPage";
+import AboutPage from "./pages/about/AboutPage";
+import RecipePage from "./pages/recipe/RecipePage";
+import SavedPage from "./pages/saved/SavedPage";
 import Header from "./components/header/Header";
 import SignInForm from "./components/auth-forms/SignInForm";
 import SignUpForm from "./components/auth-forms/SignUpForm";
-import RecipesPage from "./pages/recipes/RecipesPage";
-import AboutPage from "./pages/about/AboutPage";
-import LibraryPage from "./pages/library/LibraryPage";
-import { ThemeProvider, createTheme } from "@mui/material";
-import RecipePage from "./pages/recipe/RecipePage";
 
 const globalTheme = createTheme({
   breakpoints: {
@@ -59,8 +59,8 @@ function App() {
             element={<AboutPage setActivePage={setActivePage} />}
           />
           <Route
-            path="library"
-            element={<LibraryPage setActivePage={setActivePage} />}
+            path="saved"
+            element={<SavedPage setActivePage={setActivePage} />}
           />
         </Route>
         <Route path="signin" element={<SignInForm />} />

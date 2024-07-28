@@ -1,41 +1,31 @@
-import { Credentials } from "@typings/auth";
-
-const mockUser: Credentials = {
-  username: "mockuser",
-  email: "mock@gmail.com",
-  password: "MockPass1$",
-  age: 44,
-  calories: 700,
-  diets: ["none"],
-};
-
-after(() => {
+after(function () {
   cy.dropCollection("users");
 });
 
-context("Auth E2E tests", () => {
-  beforeEach(() => {
+context("Auth E2E tests", function () {
+  beforeEach(function () {
     cy.visit("/");
 
-    cy.get("[data-testid=header").as("header");
+    cy.fixture("../fixtures/mockUser.json").as("mockUser");
+    cy.get("[data-testid=header]").as("header");
     cy.contains(/sign up/i).as("signUpBtn");
     cy.contains(/sign in/i).as("signInBtn");
   });
-  after(() => {});
-  context("Sign Up tests", () => {
-    beforeEach(() => {
+
+  context("Sign Up tests", function () {
+    beforeEach(function () {
       // Redirects to /signup
       cy.get("@signUpBtn").click();
     });
 
-    afterEach(() => {
+    afterEach(function () {
       // Deletes mock user
-      cy.request("DELETE", `/api/auth/${mockUser.username}`);
+      cy.request("DELETE", `/api/auth/${this.mockUser.username}`);
     });
 
-    it("successfully signs up the user, redirects to home page and sets the auth-token", () => {
+    it("successfully signs up the user, redirects to home page and sets the auth-token", function () {
       // Fills out the inputs
-      cy.fillSignUp(mockUser);
+      cy.fillSignUp(this.mockUser);
 
       // Submits the form
       cy.get("@signUpBtn").click();
@@ -47,8 +37,8 @@ context("Auth E2E tests", () => {
       cy.getCookie("auth-token").should("not.equal", null);
     });
 
-    it("displays the error helper text and doesn't redirect to home page if there is an error", () => {
-      cy.fillSignUp({ ...mockUser, email: "invalid-email" });
+    it("displays the error helper text and doesn't redirect to home page if there is an error", function () {
+      cy.fillSignUp({ ...this.mockUser, email: "invalid-email" });
 
       // Submits the form
       cy.get("@signUpBtn").click();
@@ -61,24 +51,27 @@ context("Auth E2E tests", () => {
     });
   });
 
-  context("Sign In tests", () => {
-    before(() => {
-      cy.request("POST", "/api/auth/signup", mockUser);
+  context("Sign In tests", function () {
+    before(function () {
+      cy.request("POST", "/api/auth/signup", this.mockUser);
     });
 
-    beforeEach(() => {
+    beforeEach(function () {
       // Redirects to /signin
       cy.get("@signInBtn").click();
     });
 
-    after(() => {
+    after(function () {
       // Deletes mock user
-      cy.request("DELETE", `/api/auth/${mockUser.username}`);
+      cy.request("DELETE", `/api/auth/${this.mockUser.username}`);
     });
 
-    it("successfully signs up the user, redirects to home page and sets the auth cookie", () => {
+    it("successfully signs up the user, redirects to home page and sets the auth cookie", function () {
       // Fills out the inputs
-      cy.fillSignIn({ email: mockUser.email, password: mockUser.password });
+      cy.fillSignIn({
+        email: this.mockUser.email,
+        password: this.mockUser.password,
+      });
 
       // Submits the form
       cy.get("@signInBtn").click();
@@ -90,9 +83,12 @@ context("Auth E2E tests", () => {
       cy.getCookie("auth-token").should("not.equal", null);
     });
 
-    it("displays the error helper text and doesn't redirect to home page if there is an error", () => {
+    it("displays the error helper text and doesn't redirect to home page if there is an error", function () {
       // Fills out the inputs
-      cy.fillSignIn({ email: "invalid-email", password: mockUser.password });
+      cy.fillSignIn({
+        email: "invalid-email",
+        password: this.mockUser.password,
+      });
 
       // Submits the form
       cy.get("@signInBtn").click();
@@ -105,19 +101,19 @@ context("Auth E2E tests", () => {
     });
   });
 
-  context("Logout tests", () => {
-    before(() => {
-      cy.request("POST", "/api/auth/signup", mockUser);
+  context("Logout tests", function () {
+    before(function () {
+      cy.request("POST", "/api/auth/signup", this.mockUser);
     });
 
-    after(() => {
-      cy.request("DELETE", `/api/auth/${mockUser.username}`);
+    after(function () {
+      cy.request("DELETE", `/api/auth/${this.mockUser.username}`);
     });
 
-    it("succesfully logs out the user and deletes the auth-token", () => {
+    it("succesfully logs out the user and deletes the auth-token", function () {
       cy.visit("/signin");
 
-      cy.fillSignIn(mockUser);
+      cy.fillSignIn(this.mockUser);
 
       cy.get("@signInBtn").click();
 

@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema({
     diets: {
         type: [String],
         required: true,
-    }
+    },
+    savedRecipes: [String],
 });
 
 export default mongoose.model("User", userSchema);

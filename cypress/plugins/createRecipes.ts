@@ -19,7 +19,7 @@ const createRecipes = () => {
     .map((recipe: RecipeInfo, i: number) => ({
       ...mockRecipe,
       title: `${mockRecipe.title} ${i + 1}`,
-      recipeId: `${mockRecipe.recipeId}-${i + 1}`
+      recipeId: `${mockRecipe.recipeId}-${i + 1}`,
     }));
 
   return recipesList;

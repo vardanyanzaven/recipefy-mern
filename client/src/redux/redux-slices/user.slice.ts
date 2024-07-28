@@ -6,6 +6,10 @@ const initialState: UserState = {
   isLoggedIn: false,
   username: "",
   email: "",
+  age: null,
+  calories: null,
+  diets: [],
+  savedRecipes: [],
 };
 
 export const userSlice = createSlice({
@@ -13,19 +17,17 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, { payload }: PayloadAction<UserData>) {
-      const { username, email } = payload;
-      state.isLoggedIn = true;
-      state.username = username;
-      state.email = email;
+      return { ...payload, isLoggedIn: true };
     },
-    logoutUser(state) {
-      state.isLoggedIn = false;
-      state.username = "";
-      state.email = "";
+    logoutUser() {
+      return initialState;
+    },
+    setSavedRecipes(state, { payload }: PayloadAction<string[]>) {
+      state.savedRecipes = payload;
     },
   },
 });
 
-export const { setUser, logoutUser } = userSlice.actions;
+export const { setUser, logoutUser, setSavedRecipes } = userSlice.actions;
 
 export default userSlice.reducer;

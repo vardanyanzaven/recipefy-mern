@@ -5,15 +5,33 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderLink } from "../header/Header.styles";
 import { HEADER_LINKS } from "../../constants";
 import { useAppSelector } from "../../redux/hooks.redux";
+import verifyUser from "../../utils/helpers/verifyUser";
+import useSnackbar from "../snackbar/Snackbar";
 
-const HeaderMenu = ({ activePage }: { activePage: string }) => {
+const HeaderMenu = ({ activePage, handleOpen }: { activePage: string, handleOpen: (message: string) => void }) => {
+  const navigate = useNavigate();
+  const { CustomSnackbar } = useSnackbar();
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
   const isMenuOpen = Boolean(anchorEl);
-  const navigate = useNavigate();
 
-  const handleOpenLink = (link: string) => {
-    (link === "recipes" || link === "signin") && navigate(link);
+  const handleOpenLink = async (
+    verification: boolean | undefined,
+    link: string
+  ) => {
+    let isLinkOpened = false;
+    if (verification) {
+      const isVerified = await verifyUser();
+      if (!isVerified) {
+        handleOpen("Sign in to view saved recipes!");
+        return isLinkOpened;
+      }
+    }
+
+    link !== "about" && navigate(link);
+    isLinkOpened = true;
+    return isLinkOpened;
   };
 
   const closeMenu = () => {
@@ -39,17 +57,17 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
           return (
             <MenuItem
               key={headerLink.link}
-              disableRipple={headerLink.link !== "recipes"}
+              disableRipple={headerLink.link === "about"}
               sx={{
                 width: "100vw",
                 ".MuiTouchRipple-child": {
                   backgroundColor: "#4eecdc",
                 },
-                cursor: headerLink.link === "recipes" ? "pointer" : "default",
+                cursor: headerLink.link !== "about" ? "pointer" : "default",
               }}
-              onClick={() => {
-                handleOpenLink(headerLink.link);
-                headerLink.link === "recipes" && closeMenu();
+              onClick={async () => {
+                const isLinkOpened = await handleOpenLink(headerLink.verification, headerLink.link);
+                (headerLink.link !== "about" && isLinkOpened) && closeMenu();
               }}
             >
               <HeaderLink
@@ -60,7 +78,7 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
                 }}
                 className={`${
                   activePage === headerLink.link && "active-page-link"
-                } ${headerLink.link !== "recipes" && "disabled"}`}
+                } ${headerLink.link === "about" && "disabled"}`}
               >
                 {headerLink.name}
               </HeaderLink>
@@ -69,8 +87,8 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
         })}
         {!isLoggedIn && (
           <MenuItem
-            onClick={() => {
-              handleOpenLink("signin");
+            onClick={async () => {
+              await handleOpenLink(false, "signin");
               closeMenu();
             }}
             sx={{
@@ -78,7 +96,7 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
               ".MuiTouchRipple-child": {
                 backgroundColor: "#4eecdc",
               },
-              display: {xs: "block", sm: "none"}
+              display: { xs: "block", sm: "none" },
             }}
           >
             <HeaderLink
@@ -93,6 +111,7 @@ const HeaderMenu = ({ activePage }: { activePage: string }) => {
           </MenuItem>
         )}
       </Menu>
+      <CustomSnackbar />
     </>
   );
 };
