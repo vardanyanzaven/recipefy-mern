@@ -63,8 +63,7 @@ jobs:
 
       - name: Deploy changes to AWS
         run: |
-           ls
-           ssh -o StrictHostKeyChecking=no -i recipefy-key-pair.pem ec2-user@ec2-13-53-200-29.eu-north-1.compute.amazonaws.com '
+           ssh -o StrictHostKeyChecking=no -i recipefy-key-pair.pem ec2-user@ec2-${{ secrets.AWS_PRIVATE_IP }}.eu-north-1.compute.amazonaws.com '
            cd recipefy-mern
            git fetch origin
            git reset --hard origin/main
