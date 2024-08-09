@@ -73,7 +73,7 @@ const httpSignInUser = async (req: Request, res: Response) => {
 const httpLogoutUser = async (req: Request, res: Response) => {
   try {
     res.clearCookie("auth-token");
-    return res.status(200).end();
+    return res.status(200).json("User logged out successfully!");
   } catch (err) {
     return res.status(400).json({ error: (err as Error).message });
   }
@@ -84,7 +84,7 @@ const httpDeleteUser = async (req: Request, res: Response) => {
   try {
     res.clearCookie("auth-token");
     await deleteUser(username);
-    return res.status(200).end();
+    return res.status(200).json("User deleted successfully!");
   } catch (err) {
     return res.status(400).json({ error: (err as Error).message });
   }

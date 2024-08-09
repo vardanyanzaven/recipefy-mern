@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 MONGO_DB_URL="$1"
 MONGO_DB_TEST_URL="$2"
